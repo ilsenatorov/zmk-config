@@ -21,7 +21,7 @@ layers:
   - {t: K, h: RCTRL}
   - {t: L, h: RALT}
   - {t: ;, h: RGUI}
-  - '-'
+  - '&studio_unlock'
   - Z
   - X
   - C
@@ -121,7 +121,7 @@ layers:
   - '&sys_reset'
   - BT CLR
   - OUT TOG
-  - {t: ▽, type: trans}
+  - '&studio_unlock'
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - F7
