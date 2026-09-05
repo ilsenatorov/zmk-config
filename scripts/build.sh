@@ -5,7 +5,7 @@ set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 IMAGE="zmkfirmware/zmk-build-arm:stable"
-BOARD="seeeduino_xiao_ble"
+BOARD="xiao_ble/nrf52840/zmk"
 HOST_UID_GID="$(id -u):$(id -g)"
 
 # .zmk is a separate west workspace (sibling to config/, not nested under it)
