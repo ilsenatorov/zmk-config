@@ -1,0 +1,16 @@
+name: Draw keymaps
+
+on:
+  push:
+    paths:
+      - "config/*.keymap"
+      - "config/west.yml"
+      - "keymap_drawer.config.yaml"
+      - ".github/workflows/draw.yml"
+  workflow_dispatch:
+
+jobs:
+  draw:
+    permissions:
+      contents: write
+    uses: caksoylar/keymap-drawer/.github/workflows/draw-zmk.yml@main
