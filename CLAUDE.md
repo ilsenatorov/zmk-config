@@ -20,23 +20,27 @@ Both are declared in `config/west.yml` and checked out into `.zmk/` (gitignored,
 - `boards/shields/` — for a custom/unreleased shield defined *in this repo* rather than pulled in as a module. Currently just a placeholder (`.gitkeep`); not used for TOTEM since its shield lives in the external module above.
 - `zephyr/module.yml` — declares this repo as a Zephyr module with `board_root: .`, so any shields placed under `boards/` here (not currently used) would be discoverable by the build.
 - `.github/workflows/build.yml` — CI: calls ZMK's reusable `build-user-config.yml` workflow, which builds every entry in `build.yaml` and uploads `.uf2` firmware as build artifacts.
-- `.zmk/` — local west workspace (gitignored). Populated by `west init`/`west update`; do not edit or commit anything here.
+- `.zmk/` — local west workspace (gitignored, disposable). `.zmk/config/` is a thin shim dir holding only a symlink to the real `config/west.yml` — this makes `.zmk` its own west topdir (separate from `config/`) so the vendored `zephyr/` checkout doesn't collide with this repo's own `zephyr/module.yml`. `scripts/build.sh` creates/repairs it automatically; don't edit or commit anything under it.
+- `scripts/build.sh` / `scripts/flash.sh` — local build/flash automation, see below.
+- `firmware/` — build output (`totem_left.uf2`, `totem_right.uf2`), gitignored.
 
-## Building firmware
+## Building and flashing firmware
 
-Via GitHub Actions (automatic on push, or trigger manually with `workflow_dispatch`) — firmware `.uf2` files are attached as workflow artifacts. Or locally with `west`:
+**CI**: GitHub Actions builds on every push (or manual `workflow_dispatch`); `.uf2` files are attached as workflow artifacts. Good for verifying, too slow for iterating on a keymap.
+
+**Local (fast loop)**: `scripts/build.sh` and `scripts/flash.sh` build inside the same `zmkfirmware/zmk-build-arm:stable` Docker image CI uses — no local Zephyr SDK install needed, just Docker.
 
 ```sh
-# one-time setup (creates/updates .zmk/)
-west init -l config
-west update
+./scripts/build.sh              # builds both halves -> firmware/totem_{left,right}.uf2
+SKIP_UPDATE=1 ./scripts/build.sh  # skip `west update`; ~10s incremental rebuild after a keymap-only edit
 
-# build one half:
-west build -s .zmk/zmk/app -b seeeduino_xiao_ble -- -DSHIELD=totem_left -DZMK_CONFIG="$PWD/config"
-west build -s .zmk/zmk/app -b seeeduino_xiao_ble -- -DSHIELD=totem_right -DZMK_CONFIG="$PWD/config"
+./scripts/flash.sh left         # build + flash just the left half
+./scripts/flash.sh right
+./scripts/flash.sh both         # flash both, one after the other
+./scripts/flash.sh left --skip-build   # flash the last build without rebuilding
 ```
 
-Flash by copying the resulting `zmk.uf2` to the XIAO BLE's mass-storage bootloader drive (double-tap reset to enter it).
+`flash.sh` polls `/run/media/$USER/*`, `/media/$USER/*`, `/media/*`, `/mnt/*` for a mounted UF2 bootloader drive (identified by `INFO_UF2.TXT`) and copies the firmware once it appears. Put the target half into bootloader mode when prompted — double-tap its reset button, or (once it's already running this keymap) hold the `&bootloader` key on the `ADJ` layer.
 
 ## Editing the keymap
 
