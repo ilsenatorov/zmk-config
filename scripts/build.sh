@@ -32,8 +32,8 @@ docker run --rm \
     $INIT_CMD
     $UPDATE_CMD
     west zephyr-export
-    west build -s zmk/app -d build/totem_left  -b $BOARD -p auto -- -DZMK_CONFIG=$REPO_DIR/config -DSHIELD=totem_left  -DZMK_EXTRA_MODULES=$REPO_DIR
-    west build -s zmk/app -d build/totem_right -b $BOARD -p auto -- -DZMK_CONFIG=$REPO_DIR/config -DSHIELD=totem_right -DZMK_EXTRA_MODULES=$REPO_DIR
+    west build -s zmk/app -d build/totem_left  -b $BOARD -S studio-rpc-usb-uart -p auto -- -DZMK_CONFIG=$REPO_DIR/config -DSHIELD=totem_left  -DZMK_EXTRA_MODULES=$REPO_DIR -DCONFIG_ZMK_STUDIO=y
+    west build -s zmk/app -d build/totem_right -b $BOARD -S studio-rpc-usb-uart -p auto -- -DZMK_CONFIG=$REPO_DIR/config -DSHIELD=totem_right -DZMK_EXTRA_MODULES=$REPO_DIR -DCONFIG_ZMK_STUDIO=y
     mkdir -p $REPO_DIR/firmware
     cp build/totem_left/zephyr/zmk.uf2  $REPO_DIR/firmware/totem_left.uf2
     cp build/totem_right/zephyr/zmk.uf2 $REPO_DIR/firmware/totem_right.uf2
