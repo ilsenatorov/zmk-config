@@ -21,7 +21,7 @@ layers:
   - {t: K, h: RCTRL}
   - {t: L, h: RALT}
   - {t: ;, h: RGUI}
-  - '&studio_unlock'
+  - LSHFT
   - Z
   - X
   - C
@@ -33,10 +33,10 @@ layers:
   - .
   - /
   - \
-  - {t: ESC, h: LGUI}
+  - {t: ESC, h: NUM}
   - {t: SPACE, h: NAV}
   - RET
-  - DEL
+  - BSPC
   - {t: TAB, h: SYM}
   - DEL
   SYM:
@@ -79,60 +79,99 @@ layers:
   - {type: held}
   - {t: ▽, type: trans}
   NAV:
-  - '9'
-  - '0'
-  - UP
-  - {t: ▽, type: trans}
-  - '['
-  - ']'
-  - KP 7
-  - KP 8
-  - KP 9
-  - KP PLUS
-  - '5'
-  - '6'
-  - '7'
-  - '8'
-  - (
-  - )
+  - Gui+1
+  - Gui+2
+  - Gui+3
+  - Gui+4
+  - Gui+5
+  - PG UP
+  - HOME
+  - END
+  - Gui+Sft+TAB
+  - Gui+TAB
+  - LGUI
+  - LALT
+  - LCTRL
+  - LSHFT
+  - Gui+RET
+  - PG DN
   - LEFT
-  - UP
   - DOWN
+  - UP
   - RIGHT
   - {t: ▽, type: trans}
-  - '1'
-  - '2'
-  - '3'
-  - '4'
-  - '{'
-  - '}'
-  - KP 1
-  - KP 2
-  - KP 3
-  - KP MULTIPLY
+  - Gui+Sft+1
+  - Gui+Sft+2
+  - Gui+Sft+3
+  - Gui+Sft+4
+  - Gui+Sft+5
+  - Gui+SPACE
+  - Gui+F
+  - Gui+D
+  - Gui+B
+  - Gui+Sft+Q
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {type: held}
   - {t: ▽, type: trans}
-  - ADJ
-  - KP 0
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  NUM:
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - /
+  - '7'
+  - '8'
+  - '9'
+  - '-'
+  - LGUI
+  - LALT
+  - LCTRL
+  - LSHFT
+  - {t: ▽, type: trans}
+  - '*'
+  - '4'
+  - '5'
+  - '6'
+  - +
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - '0'
+  - '1'
+  - '2'
+  - '3'
+  - .
+  - {t: ▽, type: trans}
+  - {type: held}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   ADJ:
   - '&sys_reset'
   - BT CLR
   - OUT TOG
   - '&studio_unlock'
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - BRI DN
+  - BRI UP
   - F7
   - F8
   - F9
   - F12
   - '&bootloader'
   - BT NXT
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - VOL DN
+  - VOL UP
+  - MUTE
   - {t: ▽, type: trans}
   - F4
   - F5
@@ -141,9 +180,9 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - BT PRV
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - PREV
+  - PP
+  - NEXT
   - {t: ▽, type: trans}
   - F1
   - F2
@@ -156,3 +195,22 @@ layers:
   - {t: ▽, type: trans}
   - {type: held}
   - {t: ▽, type: trans}
+combos:
+- p: [16, 17]
+  k: HOME
+  l: [BASE]
+- p: [18, 19]
+  k: END
+  l: [BASE]
+- p: [26, 27]
+  k: PG UP
+  l: [BASE]
+- p: [28, 29]
+  k: PG DN
+  l: [BASE]
+- p: [13, 16]
+  k: '&caps_word'
+  l: [BASE]
+- p: [22, 23]
+  k: _
+  l: [BASE]
