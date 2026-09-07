@@ -132,7 +132,7 @@ layers:
   - BT PRV
   - BT NXT
   - {t: ▽, type: trans}
-  - '&studio_unlock'
+  - {t: ▽, type: trans}
   - PP
   - PREV
   - VOL UP
