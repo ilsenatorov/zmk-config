@@ -32,13 +32,52 @@ layers:
   - ','
   - .
   - /
-  - \
-  - {t: ESC, h: NUM}
-  - {t: SPACE, h: NAV}
+  - {t: ADJ, h: toggle}
+  - {t: ESC, h: NAV}
+  - {t: SPACE, h: SYM}
   - RET
   - BSPC
-  - {t: TAB, h: SYM}
+  - {t: TAB, h: NUM}
+  - RSHFT
+  NAV:
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - PG UP
+  - HOME
+  - PSCRN
+  - {t: ▽, type: trans}
+  - END
+  - LGUI
+  - LALT
+  - LCTRL
+  - LSHFT
+  - {t: ▽, type: trans}
+  - PG DN
+  - LEFT
+  - UP
+  - DOWN
+  - RIGHT
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {type: held}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   - DEL
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   SYM:
   - '`'
   - <
@@ -50,21 +89,21 @@ layers:
   - '}'
   - $
   - '&'
-  - {t: '!', h: LGUI}
-  - {t: '*', h: LALT}
-  - {t: /, h: LCTRL}
-  - {t: '=', h: LSHFT}
-  - '&'
+  - '!'
+  - '*'
+  - /
+  - '='
+  - '?'
   - '#'
-  - {t: (, h: RSHIFT}
-  - {t: ), h: RCTRL}
-  - {t: ;, h: RALT}
-  - {t: '"', h: LGUI}
+  - (
+  - )
+  - ;
+  - '"'
   - {t: ▽, type: trans}
   - '~'
   - +
-  - '-'
   - ':'
+  - _
   - '%'
   - '@'
   - '['
@@ -73,144 +112,105 @@ layers:
   - ''''
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - ADJ
-  - {t: ▽, type: trans}
-  - {type: held}
-  - {t: ▽, type: trans}
-  NAV:
-  - Gui+1
-  - Gui+2
-  - Gui+3
-  - Gui+4
-  - Gui+5
-  - PG UP
-  - HOME
-  - END
-  - Gui+Sft+TAB
-  - Gui+TAB
-  - LGUI
-  - LALT
-  - LCTRL
-  - LSHFT
-  - Gui+RET
-  - PG DN
-  - LEFT
-  - DOWN
-  - UP
-  - RIGHT
-  - {t: ▽, type: trans}
-  - Gui+Sft+1
-  - Gui+Sft+2
-  - Gui+Sft+3
-  - Gui+Sft+4
-  - Gui+Sft+5
-  - Gui+SPACE
-  - Gui+F
-  - Gui+D
-  - Gui+B
-  - Gui+Sft+Q
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
   - {type: held}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   NUM:
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - /
+  - '1'
+  - '2'
+  - '3'
+  - '4'
+  - '5'
+  - '6'
   - '7'
   - '8'
   - '9'
-  - '-'
+  - '0'
   - LGUI
   - LALT
   - LCTRL
   - LSHFT
-  - {t: ▽, type: trans}
-  - '*'
-  - '4'
-  - '5'
-  - '6'
-  - +
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - '0'
-  - '1'
-  - '2'
-  - '3'
+  - '-'
   - .
-  - {t: ▽, type: trans}
-  - {type: held}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  ADJ:
-  - '&sys_reset'
-  - BT CLR
-  - OUT TOG
-  - '&studio_unlock'
-  - BRI DN
-  - BRI UP
-  - F7
-  - F8
-  - F9
-  - F12
-  - '&bootloader'
-  - BT NXT
-  - VOL DN
-  - VOL UP
-  - MUTE
-  - {t: ▽, type: trans}
-  - F4
-  - F5
-  - F6
-  - F11
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - BT PRV
-  - PREV
-  - PP
-  - NEXT
-  - {t: ▽, type: trans}
+  - RSHFT
+  - RCTRL
+  - RALT
+  - RGUI
   - F1
   - F2
   - F3
+  - F4
+  - F5
+  - F6
+  - F7
+  - F8
+  - F9
   - F10
+  - F11
+  - F12
+  - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {type: held}
   - {t: ▽, type: trans}
-  - {type: held}
+  ADJ:
+  - {t: BT, h: '0'}
+  - {t: BT, h: '1'}
+  - {t: BT, h: '2'}
+  - {t: BT, h: '3'}
+  - {t: BT, h: '4'}
+  - MUTE
+  - BRI DN
+  - BRI UP
+  - {t: ▽, type: trans}
+  - OUT TOG
+  - BT CLR
+  - BT PRV
+  - BT NXT
+  - {t: ▽, type: trans}
+  - '&studio_unlock'
+  - PP
+  - PREV
+  - VOL UP
+  - VOL DN
+  - NEXT
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   - {t: ▽, type: trans}
 combos:
-- p: [16, 17]
-  k: HOME
-  l: [BASE]
-- p: [18, 19]
-  k: END
-  l: [BASE]
-- p: [26, 27]
-  k: PG UP
-  l: [BASE]
-- p: [28, 29]
-  k: PG DN
-  l: [BASE]
 - p: [13, 16]
   k: '&caps_word'
   l: [BASE]
 - p: [22, 23]
   k: _
   l: [BASE]
+- p: [20, 21, 22]
+  k: '&bootloader'
+  l: [ADJ]
+- p: [23, 24, 25]
+  k: '&sys_reset'
+  l: [ADJ]
+- p: [26, 27, 28]
+  k: '&sys_reset'
+  l: [ADJ]
+- p: [29, 30, 31]
+  k: '&bootloader'
+  l: [ADJ]
