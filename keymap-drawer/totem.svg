@@ -964,20 +964,20 @@ path.combo {
 <text x="0" y="0" class="key trans tap">▽</text>
 </g>
 <g class="combo combopos-0">
-<rect rx="6" ry="6" x="51" y="203" width="28" height="26" class="combo"/>
-<text x="65" y="216" class="combo tap"><tspan style="font-size: 64%">&amp;bootloader</tspan></text>
+<rect rx="6" ry="6" x="168" y="144" width="28" height="26" class="combo"/>
+<text x="182" y="157" class="combo tap"><tspan style="font-size: 64%">&amp;bootloader</tspan></text>
 </g>
 <g class="combo combopos-1">
-<rect rx="6" ry="6" x="287" y="159" width="28" height="26" class="combo"/>
-<text x="301" y="172" class="combo tap"><tspan style="font-size: 70%">&amp;sys_reset</tspan></text>
+<rect rx="6" ry="6" x="228" y="141" width="28" height="26" class="combo"/>
+<text x="242" y="154" class="combo tap"><tspan style="font-size: 70%">&amp;sys_reset</tspan></text>
 </g>
 <g class="combo combopos-2">
-<rect rx="6" ry="6" x="536" y="159" width="28" height="26" class="combo"/>
-<text x="550" y="172" class="combo tap"><tspan style="font-size: 70%">&amp;sys_reset</tspan></text>
+<rect rx="6" ry="6" x="595" y="141" width="28" height="26" class="combo"/>
+<text x="609" y="154" class="combo tap"><tspan style="font-size: 70%">&amp;sys_reset</tspan></text>
 </g>
 <g class="combo combopos-3">
-<rect rx="6" ry="6" x="771" y="203" width="28" height="26" class="combo"/>
-<text x="785" y="216" class="combo tap"><tspan style="font-size: 64%">&amp;bootloader</tspan></text>
+<rect rx="6" ry="6" x="655" y="144" width="28" height="26" class="combo"/>
+<text x="669" y="157" class="combo tap"><tspan style="font-size: 64%">&amp;bootloader</tspan></text>
 </g>
 </g>
 </g>
