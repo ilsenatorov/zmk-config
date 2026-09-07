@@ -8,6 +8,7 @@
 #define SYM  2
 #define NUM  3
 #define ADJ  4
+#define FUN  5
 
 // Physical key positions (see totem-layout.dtsi), used for the bilateral
 // home-row-mod guard below:
@@ -80,32 +81,50 @@
             layers = <BASE>;
         };
 
+        // Same bilateral-safe pattern as combo_caps_word: fires on the combo
+        // queue before the home-row-mod hold-tap resolves, so J/K/L still
+        // work as mods everywhere else.
+        combo_home {
+            timeout-ms = <35>;
+            key-positions = <16 17>;
+            bindings = <&kp HOME>;
+            layers = <BASE>;
+        };
+
+        combo_end {
+            timeout-ms = <35>;
+            key-positions = <17 18>;
+            bindings = <&kp END>;
+            layers = <BASE>;
+        };
+
         // &sys_reset and &bootloader act on the half that receives them, so
-        // each needs a copy per half. Three keys makes an accident implausible.
+        // each needs a copy per half. Two keys, outer=boot/inner=reset,
+        // keeps accidents unlikely while ADJ is only reachable by holding.
         combo_boot_left {
             timeout-ms = <50>;
-            key-positions = <20 21 22>;
+            key-positions = <20 21>;
             bindings = <&bootloader>;
             layers = <ADJ>;
         };
 
         combo_reset_left {
             timeout-ms = <50>;
-            key-positions = <23 24 25>;
+            key-positions = <24 25>;
             bindings = <&sys_reset>;
             layers = <ADJ>;
         };
 
         combo_reset_right {
             timeout-ms = <50>;
-            key-positions = <26 27 28>;
+            key-positions = <26 27>;
             bindings = <&sys_reset>;
             layers = <ADJ>;
         };
 
         combo_boot_right {
             timeout-ms = <50>;
-            key-positions = <29 30 31>;
+            key-positions = <30 31>;
             bindings = <&bootloader>;
             layers = <ADJ>;
         };
@@ -119,7 +138,7 @@
             bindings = <
                 &kp Q        &kp W        &kp E         &kp R         &kp T       &kp Y      &kp U         &kp I         &kp O        &kp P
                 &hml LGUI A  &hml LALT S  &hml LCTRL D  &hml LSHFT F  &kp G       &kp H      &hmr RSHFT J  &hmr RCTRL K  &hmr RALT L  &hmr RGUI SEMI
-    &kp LSHFT   &kp Z        &kp X        &kp C         &kp V         &kp B       &kp N      &kp M         &kp COMMA     &kp DOT      &kp FSLH    &tog ADJ
+    &kp LSHFT   &kp Z        &kp X        &kp C         &kp V         &kp B       &kp N      &kp M         &kp COMMA     &kp DOT      &kp FSLH    &mo ADJ
                                           &lt NAV ESC   &lt SYM SPACE &kp RET     &kp BSPC   &lt NUM TAB   &kp RSHFT
             >;
         };
@@ -149,7 +168,7 @@
             bindings = <
                 &kp N1      &kp N2      &kp N3      &kp N4      &kp N5          &kp N6      &kp N7      &kp N8      &kp N9      &kp N0
                 &kp LGUI    &kp LALT    &kp LCTRL   &kp LSHFT   &kp MINUS       &kp DOT     &kp RSHFT   &kp RCTRL   &kp RALT    &kp RGUI
-    &kp F1      &kp F2      &kp F3      &kp F4      &kp F5      &kp F6          &kp F7      &kp F8      &kp F9      &kp F10     &kp F11     &kp F12
+    &mo FUN     &trans      &trans      &trans      &trans      &trans          &trans      &kp LEFT    &kp UP      &kp DOWN    &kp RIGHT   &trans
                                         &trans      &trans      &trans          &trans      &trans      &trans
             >;
         };
@@ -161,6 +180,16 @@
                 &bt BT_CLR   &bt BT_PRV   &bt BT_NXT   &trans       &studio_unlock   &kp C_PP    &kp C_PREV   &kp C_VOL_UP &kp C_VOL_DN &kp C_NEXT
     &trans      &trans       &trans       &trans       &trans       &trans           &trans      &trans       &trans       &trans      &trans      &trans
                                           &trans       &trans       &trans           &trans      &trans       &trans
+            >;
+        };
+
+        fun_layer {
+            display-name = "FUN";
+            bindings = <
+                &kp F1      &kp F2      &kp F3      &kp F4      &kp F5          &kp F6      &kp F7      &kp F8      &kp F9      &kp F10
+                &trans      &trans      &trans      &trans      &trans          &trans      &trans      &trans      &trans      &kp F11
+    &trans      &trans      &trans      &trans      &trans      &trans          &trans      &trans      &trans      &trans      &trans      &kp F12
+                                        &trans      &trans      &trans          &trans      &trans      &trans
             >;
         };
     };
