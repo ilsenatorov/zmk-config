@@ -6,20 +6,21 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 A ZMK firmware config repo (created from the `zmk-config-template`) for a **TOTEM** keyboard — a 38-key column-staggered split, wireless (Seeed XIAO BLE) build. It holds only *user config* — keymap, Kconfig overrides, and build matrix — not the ZMK firmware or shield definition itself. Those are pulled in via west:
 
-- ZMK firmware source: `zmkfirmware/zmk` (pinned to `v0.3`)
+- ZMK firmware source: `zmkfirmware/zmk` (**unpinned — tracks `main`**; `config/west.yml` sets no `revision` for it, so `defaults: revision: main` applies)
 - TOTEM shield definition: `bildermankawasaki/zmk-keyboard-totem` (an external ZMK module — not vendored into this repo)
 
 Both are declared in `config/west.yml` and checked out into `.zmk/` (gitignored, not part of this repo) by `west update`.
 
 ## Layout
 
-- `config/west.yml` — west manifest. Pins `zmk` (`zmkfirmware`, revision `v0.3`) and the `zmk-keyboard-totem` module (`bildermankawasaki`, revision `main`) which provides the `totem_left`/`totem_right` shields.
-- `build.yaml` — GitHub Actions build matrix: `seeeduino_xiao_ble` board with `totem_left` and `totem_right` shields.
-- `config/totem.keymap` — the keymap (4 layers: `BASE` QWERTY w/ home-row mods, `NAV`, `SYM`, `ADJ`). This overrides the default keymap bundled in the `zmk-keyboard-totem` module — ZMK prefers a `<shield>.keymap` found in `config/` over the shield's own.
+- `config/west.yml` — west manifest. Declares `zmk` (`zmkfirmware`) and the `zmk-keyboard-totem` module (`bildermankawasaki`), which provides the `totem_left`/`totem_right` shields. **Neither declares a `revision`, so both track `main`** via `defaults: revision: main`. Verify behavior/keycode names against ZMK `main`, not a release tag.
+- `build.yaml` — GitHub Actions build matrix: board `xiao_ble/nrf52840/zmk` with the `totem_left` and `totem_right` shields, each built with the `studio-rpc-usb-uart` snippet and `-DCONFIG_ZMK_STUDIO=y`. `scripts/build.sh` passes the same flags, so ZMK Studio is enabled in every build and `&studio_unlock` is live.
+- `config/totem.keymap` — the keymap (5 layers: `BASE`, `NAV`, `SYM`, `NUM`, `ADJ` — see "Editing the keymap" below). This overrides the default keymap bundled in the `zmk-keyboard-totem` module — ZMK prefers a `<shield>.keymap` found in `config/` over the shield's own.
 - `config/totem.conf` — Kconfig overrides (currently just `CONFIG_ZMK_SLEEP=y` for battery life).
 - `boards/shields/` — for a custom/unreleased shield defined *in this repo* rather than pulled in as a module. Currently just a placeholder (`.gitkeep`); not used for TOTEM since its shield lives in the external module above.
 - `zephyr/module.yml` — declares this repo as a Zephyr module with `board_root: .`, so any shields placed under `boards/` here (not currently used) would be discoverable by the build.
 - `.github/workflows/build.yml` — CI: calls ZMK's reusable `build-user-config.yml` workflow, which builds every entry in `build.yaml` and uploads `.uf2` firmware as build artifacts.
+- `.github/workflows/draw.yml` + `keymap-drawer/` — CI: calls `caksoylar/keymap-drawer`'s `draw-zmk.yml` on any push touching `config/*.keymap`, regenerating `keymap-drawer/totem.{yaml,svg}` and committing them back. **These two files are generated output — don't hand-edit them.** To refresh locally: `uvx --from keymap-drawer keymap parse -z config/totem.keymap > keymap-drawer/totem.yaml && uvx --from keymap-drawer keymap draw keymap-drawer/totem.yaml > keymap-drawer/totem.svg`.
 - `.zmk/` — local west workspace (gitignored, disposable). `.zmk/config/` is a thin shim dir holding only a symlink to the real `config/west.yml` — this makes `.zmk` its own west topdir (separate from `config/`) so the vendored `zephyr/` checkout doesn't collide with this repo's own `zephyr/module.yml`. `scripts/build.sh` creates/repairs it automatically; don't edit or commit anything under it.
 - `scripts/build.sh` / `scripts/flash.sh` — local build/flash automation, see below.
 - `firmware/` — build output (`totem_left.uf2`, `totem_right.uf2`), gitignored.
@@ -40,11 +41,23 @@ SKIP_UPDATE=1 ./scripts/build.sh  # skip `west update`; ~10s incremental rebuild
 ./scripts/flash.sh left --skip-build   # flash the last build without rebuilding
 ```
 
-`flash.sh` polls `/run/media/$USER/*`, `/media/$USER/*`, `/media/*`, `/mnt/*` for a mounted UF2 bootloader drive (identified by `INFO_UF2.TXT`) and copies the firmware once it appears. Put the target half into bootloader mode when prompted — double-tap its reset button, or (once it's already running this keymap) hold the `&bootloader` key on the `ADJ` layer.
+`flash.sh` polls `/run/media/$USER/*`, `/media/$USER/*`, `/media/*`, `/mnt/*` for a mounted UF2 bootloader drive (identified by `INFO_UF2.TXT`) and copies the firmware once it appears. Put the target half into bootloader mode when prompted — double-tap its reset button, or (once it's already running this keymap) toggle the `ADJ` layer with the bottom-right outer key and press the three bottom-outer keys of the half you want to flash (positions 20-21-22 on the left, 29-30-31 on the right). `&bootloader` and `&sys_reset` act on the half that receives them, which is why each exists twice.
 
 ## Editing the keymap
 
-Edit `config/totem.keymap` directly. Layer indices are `#define`d at the top (`BASE`/`NAV`/`SYM`/`ADJ`); each `bindings` block's physical layout is documented by the TOTEM shield's `totem-layout.dtsi` (in the `zmk-keyboard-totem` module) — rows read top-to-bottom, left-half then right-half, with the thumb cluster last.
+Edit `config/totem.keymap` directly. Layer indices are `#define`d at the top (`BASE`/`NAV`/`SYM`/`NUM`/`ADJ`); each `bindings` block's physical layout is documented by the TOTEM shield's `totem-layout.dtsi` (in the `zmk-keyboard-totem` module) — rows read top-to-bottom, left-half then right-half, with the thumb cluster last. Key positions are also listed in a comment at the top of the keymap; the home-row-mod positional guard depends on them, so keep it in sync if the shield layout ever changes.
+
+Layer design, and why it is the way it is:
+
+- **BASE** — QWERTY with timer-less home-row mods (`hml`/`hmr`: `balanced` flavor, 280 ms term, `require-prior-idle-ms`, a bilateral `hold-trigger-key-positions` guard and `hold-trigger-on-release`). The guard is deliberate: `Super`+a left-hand letter must take GUI from the **right** hand (`;`) and vice-versa, otherwise the hold resolves as a tap.
+- **NAV** (held on the **left** thumb, `Esc`) — arrows and paging on the **right** hand, explicit `&kp` modifiers on the **left** home row. The hold and the arrows must be on opposite hands, or two-modifier chords like `Ctrl+Alt+Down` are physically unreachable. The left home row is explicit rather than transparent so it doesn't inherit the home-row mods' `require-prior-idle-ms` latency.
+- **SYM** (held on the **left** thumb, `Space`) — symbols, all plain `&kp`. Openers sit on the right index column and closers on the right middle column.
+- **NUM** (held on the **right** thumb, `Tab`) — a real number row, **mirrored modifiers on both home rows**, and F1-F12 filling the bottom row exactly. The mirrored mods are what make the Hyprland workspace bindings work: `Super+1..0`, `Super+Shift+1..0` and `Super+Ctrl+1..0` are 30 combinations and cannot be pre-composed onto a layer. Rule: **digits 1-5 take right-hand modifiers, digits 6-0 take left-hand modifiers** — every same-hand pairing is a finger collision.
+- **ADJ** — Bluetooth, output and media. Reached by `&tog ADJ` on the bottom-right outer key; position 31 stays `&trans` on ADJ so the same key toggles back out. `&sys_reset`/`&bootloader` are 3-key combos gated to this layer rather than plain keys.
+
+`&lt` is overridden globally with `quick-tap-ms` (upstream has none, so hold-to-repeat on Space/Esc/Tab would not work). Its flavor stays `tap-preferred` on purpose: with `balanced`, rolling from `Space` into the next word's first letter resolves as a hold and fires SYM.
+
+No local Docker? `docker` may be installed but inactive and the user not in the `docker` group. Without a build you can still validate a keymap edit statically: check 38 bindings per layer, and that every keycode and behavior resolves against `app/include/dt-bindings/zmk/keys.h` and `app/dts/behaviors/` on ZMK `main`. `uvx --from keymap-drawer keymap parse -z config/totem.keymap` is also a real parse and will fail on malformed devicetree.
 
 ## Adding another keyboard to this repo
 
