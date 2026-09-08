@@ -1,5 +1,6 @@
 .claude/
 .zmk/
 .west/
+.qmk/
 
 firmware/

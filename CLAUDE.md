@@ -4,6 +4,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
+Config for two personal keyboards. The **TOTEM** (38-key wireless split) runs **ZMK**; the **ErgoDox EZ Glow** (wired, ATmega32u4) runs **QMK** — ZMK has no AVR support, so it cannot run on the ErgoDox. The ErgoDox's `qmk/ergodox_ez/` keymap deliberately mirrors the TOTEM's layer design (BASE/GAME/SYM/NUM/ADJ/FUN, the same home-row-mod behaviour, the same combos) while using the ErgoDox's extra keys — a real number row, arrow cluster, extra outer/side columns — for things the TOTEM has no room for. See "The ErgoDox EZ (QMK)" below for that side; everything else in this file is TOTEM/ZMK.
+
 A ZMK firmware config repo (created from the `zmk-config-template`) for a **TOTEM** keyboard — a 38-key column-staggered split, wireless (Seeed XIAO BLE) build. It holds only *user config* — keymap, Kconfig overrides, and build matrix — not the ZMK firmware or shield definition itself. Those are pulled in via west:
 
 - ZMK firmware source: `zmkfirmware/zmk` (**unpinned — tracks `main`**; `config/west.yml` sets no `revision` for it, so `defaults: revision: main` applies)
@@ -59,8 +61,23 @@ Layer design, and *why* it is the way it is (for the actual bindings, read the l
 
 No local Docker? `docker` may be installed but inactive and the user not in the `docker` group. Without a build you can still validate a keymap edit statically: check 38 bindings per layer, and that every keycode and behavior resolves against `app/include/dt-bindings/zmk/keys.h` and `app/dts/behaviors/` on ZMK `main`. `uvx --from keymap-drawer keymap parse -z config/totem.keymap` is also a real parse and will fail on malformed devicetree.
 
-## Adding another keyboard to this repo
+## Adding another ZMK keyboard to this repo
 
 1. If it's a custom/unreleased shield, add its definition under `boards/shields/<shield_name>/`; if it's an existing community shield, add it as a module in `config/west.yml` instead (see how TOTEM is set up above).
 2. Add the keymap as `config/<shield_name>.keymap` (and `config/<shield_name>.conf` for Kconfig overrides).
 3. Add a `board`/`shield` (or `include:`) entry in `build.yaml`.
+
+## The ErgoDox EZ (QMK)
+
+Not built via west/Zephyr at all — QMK has its own toolchain, and this board doesn't use ZMK Studio, west, or `config/`.
+
+- `qmk/ergodox_ez/` — the QMK "keymap folder": `keymap.c` (six `LAYOUT_ergodox_pretty` layers, the `chordal_hold_layout` bilateral-mod guard, the dual-function number row, combos), `config.h` (tap-hold/combo tuning), `rules.mk` (feature flags), `keymap.json` (`{"modules": ["zsa/oryx", "zsa/defaults"]}` — this, not an `ORYX_ENABLE` flag, is what keeps ZSA's Keymapp/live-training working on this firmware branch; `ORYX_ENABLE` doesn't exist here and is silently ignored if set).
+- Built against **ZSA's QMK fork, branch `firmware25`** (`https://github.com/zsa/qmk_firmware`) — the same branch Oryx itself compiles from — not mainline QMK, because the fork carries the `zsa/oryx` community module and matches Oryx's `CHORDAL_HOLD`/`FLOW_TAP` behaviour. Pin changes deliberately; don't float to a newer `firmwareNN` branch without re-checking flash usage.
+- **Flash is the hard constraint on every future edit.** `LAYER_STATE_8BIT` caps layers at 8 (this keymap uses 6) and the ATmega32u4 has 32256 bytes total; the current keymap compiles to 28656 bytes (3600 free). Before adding a layer, combo, or feature flag, check the build's printed size line (`scripts/build-ergodox.sh` also greps and warns if free space drops under 512 bytes). If space runs out, the RGB Matrix effect table (`keyboards/zsa/ergodox_ez/config.h` upstream enables ~45 animations) is the single biggest lever — trim it with `#undef ENABLE_RGB_MATRIX_*` entries in `qmk/ergodox_ez/config.h`.
+- `scripts/build-ergodox.sh` — Docker build (`qmkfm/qmk_cli` image), mirrors `scripts/build.sh`'s structure. Clones `zsa/qmk_firmware` into `.qmk/` (gitignored) and initializes only the `lib/lufa` and `modules/zsa` submodules (not the full submodule set — that pulls in ChibiOS/pico-sdk/lvgl for nothing on AVR). `SKIP_UPDATE=1` skips the fetch for a fast keymap-only rebuild. Sets `GIT_CEILING_DIRECTORIES` to stop git's repo-discovery from walking up past the repo root — needed because `.qmk` is nested inside this checkout.
+  ```sh
+  ./scripts/build-ergodox.sh              # -> firmware/ergodox_ez_glow.hex
+  SKIP_UPDATE=1 ./scripts/build-ergodox.sh  # fast rebuild after a keymap-only edit
+  ```
+- `scripts/flash-ergodox.sh` — the ErgoDox EZ uses the **Teensy HalfKay bootloader, not a UF2 drive** (unlike the TOTEM), so this polls for the HalfKay USB device (`16c0:0478`) instead of a mount point, then flashes with `wally-cli` or `teensy_loader_cli`. Needs ZSA's udev rules (`/etc/udev/rules.d/50-zsa.rules`) to flash without root.
+- Bootloader entry: hold `MO(ADJ)` (row-3 right outer key) and tap the `QK_BOOT` key on ADJ, or press the physical reset button (paperclip hole, top-right of the right half).
