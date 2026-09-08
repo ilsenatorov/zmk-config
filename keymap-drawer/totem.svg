@@ -611,7 +611,7 @@ path.combo {
 </g>
 <g transform="translate(320, 245) rotate(15.0)" class="key keypos-33">
 <rect rx="6" ry="6" x="-28" y="-26" width="55" height="52" class="key"/>
-<text x="0" y="0" class="key tap">&amp;RGUI</text>
+<text x="0" y="0" class="key tap">RGUI</text>
 </g>
 <g transform="translate(381, 271) rotate(30.0)" class="key trans keypos-34">
 <rect rx="6" ry="6" x="-28" y="-26" width="55" height="52" class="key trans"/>
