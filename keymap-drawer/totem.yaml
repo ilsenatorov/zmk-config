@@ -38,7 +38,7 @@ layers:
   - RET
   - BSPC
   - {t: TAB, h: NUM}
-  - DEL
+  - LSHIFT
   SYM:
   - '`'
   - <
@@ -75,7 +75,7 @@ layers:
   - {t: ▽, type: trans}
   - {type: held}
   - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - DEL
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   NUM:
