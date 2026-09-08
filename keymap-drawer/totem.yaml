@@ -112,7 +112,7 @@ layers:
   - RIGHT
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - '&RGUI'
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {type: held}
