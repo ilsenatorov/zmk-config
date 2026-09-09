@@ -33,12 +33,12 @@ layers:
   - .
   - /
   - ADJ
-  - ESC
+  - {t: ESC, h: LGUI}
   - {t: SPACE, h: SYM}
   - RET
   - BSPC
   - {t: TAB, h: NUM}
-  - LSHIFT
+  - {t: LSHIFT, h: DEL}
   SYM:
   - '`'
   - <
@@ -111,9 +111,9 @@ layers:
   - DOWN
   - RIGHT
   - {t: ▽, type: trans}
-  - Sft+LGUI
   - LGUI
-  - Ctl+A
+  - Sft+LGUI
+  - Ctl+LGUI
   - {t: ▽, type: trans}
   - {type: held}
   - {t: ▽, type: trans}

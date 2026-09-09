@@ -268,6 +268,7 @@ path.combo {
 <g transform="translate(255, 236)" class="key keypos-32">
 <rect rx="6" ry="6" x="-28" y="-26" width="55" height="52" class="key"/>
 <text x="0" y="0" class="key tap">ESC</text>
+<text x="0" y="24" class="key hold">LGUI</text>
 </g>
 <g transform="translate(320, 245) rotate(15.0)" class="key keypos-33">
 <rect rx="6" ry="6" x="-28" y="-26" width="55" height="52" class="key"/>
@@ -292,6 +293,7 @@ path.combo {
 <g transform="translate(596, 236)" class="key keypos-37">
 <rect rx="6" ry="6" x="-28" y="-26" width="55" height="52" class="key"/>
 <text x="0" y="0" class="key tap">LSHIFT</text>
+<text x="0" y="24" class="key hold">DEL</text>
 </g>
 <g class="combo combopos-0">
 <path d="M425,112 l-134,0" class="combo"/>
@@ -607,17 +609,19 @@ path.combo {
 </g>
 <g transform="translate(255, 236)" class="key keypos-32">
 <rect rx="6" ry="6" x="-28" y="-26" width="55" height="52" class="key"/>
+<text x="0" y="0" class="key tap">LGUI</text>
+</g>
+<g transform="translate(320, 245) rotate(15.0)" class="key keypos-33">
+<rect rx="6" ry="6" x="-28" y="-26" width="55" height="52" class="key"/>
 <text x="0" y="0" class="key tap">
 <tspan x="0" dy="-0.6em">Sft+</tspan><tspan x="0" dy="1.2em">LGUI</tspan>
 </text>
 </g>
-<g transform="translate(320, 245) rotate(15.0)" class="key keypos-33">
-<rect rx="6" ry="6" x="-28" y="-26" width="55" height="52" class="key"/>
-<text x="0" y="0" class="key tap">LGUI</text>
-</g>
 <g transform="translate(381, 271) rotate(30.0)" class="key keypos-34">
 <rect rx="6" ry="6" x="-28" y="-26" width="55" height="52" class="key"/>
-<text x="0" y="0" class="key tap">Ctl+A</text>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.6em">Ctl+</tspan><tspan x="0" dy="1.2em">LGUI</tspan>
+</text>
 </g>
 <g transform="translate(470, 270) rotate(-30.0)" class="key trans keypos-35">
 <rect rx="6" ry="6" x="-28" y="-26" width="55" height="52" class="key trans"/>
