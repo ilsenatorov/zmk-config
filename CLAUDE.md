@@ -41,7 +41,7 @@ SKIP_UPDATE=1 ./scripts/build.sh  # skip `west update`; ~10s incremental rebuild
 ./scripts/flash.sh left --skip-build   # flash the last build without rebuilding
 ```
 
-`flash.sh` polls `/run/media/$USER/*`, `/media/$USER/*`, `/media/*`, `/mnt/*` for a mounted UF2 bootloader drive (identified by `INFO_UF2.TXT`) and copies the firmware once it appears. Put the target half into bootloader mode when prompted — double-tap its reset button, or (once it's already running this keymap) toggle the `ADJ` layer with the bottom-right outer key and press the three bottom-outer keys of the half you want to flash (positions 20-21-22 on the left, 29-30-31 on the right). `&bootloader` and `&sys_reset` act on the half that receives them, which is why each exists twice.
+`flash.sh` polls `/run/media/$USER/*`, `/media/$USER/*`, `/media/*`, `/mnt/*` for a mounted UF2 bootloader drive (identified by `INFO_UF2.TXT`) and copies the firmware once it appears. Put the target half into bootloader mode when prompted — double-tap its reset button, or (once it's already running this keymap) hold `&mo ADJ` (bottom-right outer key) and tap the half's own bootloader key: position 22 for the left half, position 29 for the right half (`&sys_reset` sits at 24/27 the same way). These are plain bindings, not combos, on purpose: ZMK combos always invoke their behavior with a "local" event source, so a combo can never target the peripheral (right) half — it would silently reset the central (left) half instead, no matter which positions it listed. A direct binding on the key itself carries that key's real originating half.
 
 ## Editing the keymap
 

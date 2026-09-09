@@ -75,7 +75,7 @@ layers:
   - {t: ▽, type: trans}
   - {type: held}
   - {t: ▽, type: trans}
-  - DEL
+  - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   NUM:
@@ -123,31 +123,31 @@ layers:
   - {t: BT, h: '2'}
   - {t: BT, h: '3'}
   - {t: BT, h: '4'}
+  - {t: ▽, type: trans}
   - MUTE
-  - BRI DN
+  - VOL UP
   - BRI UP
   - {t: ▽, type: trans}
-  - OUT TOG
   - BT CLR
   - BT PRV
   - BT NXT
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   - PP
-  - PREV
-  - VOL UP
   - VOL DN
+  - BRI DN
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - '&bootloader'
+  - {t: ▽, type: trans}
+  - '&sys_reset'
+  - {t: ▽, type: trans}
+  - PREV
+  - '&sys_reset'
   - NEXT
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - '&bootloader'
   - {t: ▽, type: trans}
   - {type: held}
   - {t: ▽, type: trans}
@@ -208,15 +208,3 @@ combos:
 - p: [17, 18]
   k: END
   l: [BASE]
-- p: [22, 23]
-  k: '&bootloader'
-  l: [ADJ]
-- p: [23, 24]
-  k: '&sys_reset'
-  l: [ADJ]
-- p: [27, 28]
-  k: '&sys_reset'
-  l: [ADJ]
-- p: [28, 29]
-  k: '&bootloader'
-  l: [ADJ]
