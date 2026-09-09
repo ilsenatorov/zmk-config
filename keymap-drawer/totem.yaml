@@ -111,9 +111,9 @@ layers:
   - DOWN
   - RIGHT
   - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - RGUI
-  - {t: ▽, type: trans}
+  - Sft+LGUI
+  - LGUI
+  - Ctl+A
   - {t: ▽, type: trans}
   - {type: held}
   - {t: ▽, type: trans}
