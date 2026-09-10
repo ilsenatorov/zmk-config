@@ -25,7 +25,7 @@
 #define PERMISSIVE_HOLD
 #define PERMISSIVE_HOLD_PER_KEY // thumb LTs + number row are tap-preferred instead
 #define CHORDAL_HOLD
-#define FLOW_TAP_TERM 150
+#define FLOW_TAP_TERM 50
 
 // Combos — both required for get_combo_term()/combo_should_trigger() in
 // keymap.c to actually be called; without them QMK silently ignores both.
