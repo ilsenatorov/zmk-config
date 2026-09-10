@@ -90,6 +90,7 @@
             layers = <BASE>;
         };
 
+
         combo_end {
             timeout-ms = <35>;
             key-positions = <17 18>;
@@ -98,6 +99,20 @@
         };
 
     };
+
+    combo_single_quote {
+            timeout-ms = <35>;
+            key-positions = <12 13>;
+            bindings = <&kp SQT>;
+            layers = <BASE>;
+        };
+
+    combo_double_quote {
+            timeout-ms = <35>;
+            key-positions = <11 12>;
+            bindings = <&kp DQT>;
+            layers = <BASE>;
+        };
 
     keymap {
         compatible = "zmk,keymap";
@@ -133,22 +148,13 @@
             >;
         };
 
-        // &bootloader/&sys_reset are plain bindings here, not combos: ZMK
-        // combos always invoke their behavior with a "local" event source,
-        // so a combo can never target a peripheral (right) half no matter
-        // which positions it lists - it silently resets the central (left)
-        // half instead. A direct binding on the key itself carries that
-        // key's real originating half, so this is the only way to actually
-        // reset/bootload the right half. Requiring &mo ADJ to be held to
-        // even reach this layer is what keeps a single key from being an
-        // accident.
         adjust_layer {
             display-name = "ADJ";
             bindings = <
                 &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4     &trans  &kp C_MUTE &kp C_VOL_UP &kp C_BRI_UP    &out OUT_TOG
                 &bt BT_CLR   &bt BT_PRV   &bt BT_NXT   &trans       &trans           &trans   &kp C_PP   &kp C_VOL_DN &kp C_BRI_DN    &trans
-    &trans      &bootloader       &sys_reset  &trans       &trans   &trans           &kp C_PREV  &kp C_NEXT   &trans    &sys_reset     &bootloader      &trans
-                                          &trans       &trans       &trans           &trans      &trans       &trans
+    &trans      &bootloader       &sys_reset  &trans       &trans   &kp  PSCRN       &kp C_PREV  &kp C_NEXT   &trans    &sys_reset     &bootloader      &trans
+                                          &trans       &trans       &kp LS(PSCRN)           &trans      &trans       &trans
             >;
         };
 

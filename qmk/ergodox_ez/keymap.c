@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                           KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP,    KC_PSCR,          LSFT(KC_PSCR),
                                                     KC_AUDIO_MUTE,               KC_CAPS,
-                        KC_ESC, LT(_SYM, KC_SPC), KC_ENT,          LT(_NUM, KC_TAB), KC_BSPC, KC_DEL
+                        MT(MOD_LGUI, KC_ESC), LT(_SYM, KC_SPC), KC_ENT,          KC_BSPC, LT(_NUM, KC_TAB), KC_DEL
     ),
 
     [_GAME] = LAYOUT_ergodox_pretty(
