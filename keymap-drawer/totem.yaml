@@ -127,7 +127,7 @@ layers:
   - MUTE
   - VOL UP
   - BRI UP
-  - {t: ▽, type: trans}
+  - OUT TOG
   - BT CLR
   - BT PRV
   - BT NXT
