@@ -78,6 +78,27 @@
             layers = <BASE>;
         };
 
+        combo_minus {
+            timeout-ms = <35>;
+            key-positions = <23 24>;
+            bindings = <&kp MINUS>;
+            layers = <BASE>;
+        };
+
+        combo_colon {
+            timeout-ms = <35>;
+            key-positions = <18 19>;
+            bindings = <&kp COLON>;
+            layers = <BASE>;
+        };
+
+        combo_qmark {
+            timeout-ms = <35>;
+            key-positions = <29 30>;
+            bindings = <&kp QMARK>;
+            layers = <BASE>;
+        };
+
 
         combo_home {
             timeout-ms = <35>;
