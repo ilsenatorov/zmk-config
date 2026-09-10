@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                           KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP,    KC_PSCR,          LSFT(KC_PSCR),
                                                     KC_AUDIO_MUTE,               KC_CAPS,
-                        MT(MOD_LGUI, KC_ESC), LT(_SYM, KC_SPC), KC_ENT,          KC_BSPC, LT(_NUM, KC_TAB), KC_DEL
+                        KC_ESC, LT(_SYM, KC_SPC), KC_ENT,          KC_BSPC, LT(_NUM, KC_TAB), KC_LSFT
     ),
 
     [_GAME] = LAYOUT_ergodox_pretty(
@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                           KC_TRNS,            KC_TRNS,            KC_TRNS,          KC_TRNS,
                                                     KC_TRNS,                     KC_TRNS,
-                        KC_TRNS, KC_TRNS, KC_TRNS,             KC_TRNS, KC_TRNS, KC_TRNS
+                        KC_TRNS, KC_TRNS, KC_TRNS,             KC_DEL,  KC_TRNS, KC_TRNS
     ),
 
     [_NUM] = LAYOUT_ergodox_pretty(
@@ -76,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                           KC_TRNS,            KC_TRNS,            KC_TRNS,          KC_TRNS,
                                                     KC_TRNS,                     KC_TRNS,
-                        KC_TRNS, KC_TRNS, KC_TRNS,             KC_TRNS, KC_TRNS, KC_TRNS
+                        LSFT(KC_LGUI), KC_LGUI, LCTL(KC_A),    KC_TRNS, KC_TRNS, KC_TRNS
     ),
 
     [_ADJ] = LAYOUT_ergodox_pretty(
