@@ -1,0 +1,34 @@
+name: Totem/ErgoDox sync reminder
+
+on:
+  push:
+    paths:
+      - "config/totem.keymap"
+  pull_request:
+    paths:
+      - "config/totem.keymap"
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Check whether qmk/ergodox_ez/keymap.c was also updated
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BASE="${{ github.event.pull_request.base.sha }}"
+            HEAD="${{ github.event.pull_request.head.sha }}"
+          else
+            BASE="${{ github.event.before }}"
+            HEAD="${{ github.sha }}"
+          fi
+          if [ -z "$BASE" ] || [ "$BASE" = "0000000000000000000000000000000000000000" ]; then
+            BASE="$(git rev-list --max-parents=0 HEAD)"
+          fi
+          CHANGED="$(git diff --name-only "$BASE" "$HEAD")"
+          if echo "$CHANGED" | grep -qx 'config/totem.keymap' && \
+             ! echo "$CHANGED" | grep -qx 'qmk/ergodox_ez/keymap.c'; then
+            echo "::warning file=config/totem.keymap::config/totem.keymap changed but qmk/ergodox_ez/keymap.c did not. If this change should also apply to the ErgoDox (see CLAUDE.md, 'The ErgoDox EZ (QMK)'), port it there too — otherwise this warning is safe to ignore."
+          fi
