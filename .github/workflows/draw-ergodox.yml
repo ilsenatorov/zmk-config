@@ -1,0 +1,59 @@
+name: Draw ErgoDox keymap
+
+on:
+  push:
+    paths:
+      - "qmk/ergodox_ez/keymap.c"
+      - ".github/workflows/draw-ergodox.yml"
+  workflow_dispatch:
+
+jobs:
+  draw:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      QMK_REPO: https://github.com/zsa/qmk_firmware
+      QMK_REF: firmware25
+      QMK_KEYBOARD: zsa/ergodox_ez/m32u4/glow
+      QMK_DRAW_KEYBOARD: ergodox_ez/glow
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+
+      - name: Install keymap-drawer and qmk
+        run: pipx install keymap-drawer && pipx install qmk
+
+      # Only the keymap.c -> keymap.json conversion needs the firmware tree
+      # (for QMK's data-driven keyboard/keymap info), so this skips the
+      # lib/lufa and modules/zsa submodules that scripts/build-ergodox.sh
+      # pulls in for an actual firmware build.
+      - name: Shallow clone ZSA's QMK fork
+        run: git clone --depth 1 --branch "$QMK_REF" --no-recurse-submodules "$QMK_REPO" .qmk
+
+      - name: Convert keymap.c to keymap.json
+        working-directory: .qmk
+        run: |
+          qmk config user.qmk_home="$GITHUB_WORKSPACE/.qmk"
+          qmk c2json -kb "$QMK_KEYBOARD" -km draw_tmp --no-cpp \
+            "$GITHUB_WORKSPACE/qmk/ergodox_ez/keymap.c" \
+            -o "$GITHUB_WORKSPACE/keymap-drawer/ergodox_ez.json"
+
+      - name: Draw keymap
+        run: |
+          mkdir -p keymap-drawer
+          keymap parse -q keymap-drawer/ergodox_ez.json \
+            -l BASE GAME SYM NUM ADJ FUN \
+            > keymap-drawer/ergodox_ez.yaml
+          keymap draw -k "$QMK_DRAW_KEYBOARD" -l LAYOUT_ergodox_pretty \
+            keymap-drawer/ergodox_ez.yaml \
+            -o keymap-drawer/ergodox_ez.svg
+          rm -f keymap-drawer/ergodox_ez.json
+
+      - name: Commit updated images
+        uses: stefanzweifel/git-auto-commit-action@v7
+        with:
+          file_pattern: "keymap-drawer/ergodox_ez.svg keymap-drawer/ergodox_ez.yaml"
+          commit_message: "keymap-drawer render (ErgoDox)"
