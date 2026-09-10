@@ -62,8 +62,7 @@
     combos {
         compatible = "zmk,combos";
 
-        // caps_word fires at the start of a word, so a prior-idle guard is
-        // safe here and stops it misfiring during a fast F/J roll.
+
         combo_caps_word {
             timeout-ms = <50>;
             require-prior-idle-ms = <100>;
@@ -72,7 +71,6 @@
             layers = <BASE>;
         };
 
-        // No prior-idle guard: this one has to fire mid-word for snake_case.
         combo_underscore {
             timeout-ms = <35>;
             key-positions = <22 23>;
@@ -80,9 +78,7 @@
             layers = <BASE>;
         };
 
-        // Same bilateral-safe pattern as combo_caps_word: fires on the combo
-        // queue before the home-row-mod hold-tap resolves, so J/K/L still
-        // work as mods everywhere else.
+
         combo_home {
             timeout-ms = <35>;
             key-positions = <16 17>;
@@ -98,7 +94,6 @@
             layers = <BASE>;
         };
 
-    };
 
     combo_single_quote {
             timeout-ms = <35>;
@@ -113,6 +108,7 @@
             bindings = <&kp DQT>;
             layers = <BASE>;
         };
+    };
 
     keymap {
         compatible = "zmk,keymap";
