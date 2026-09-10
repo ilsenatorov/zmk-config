@@ -33,12 +33,12 @@ layers:
   - .
   - /
   - ADJ
-  - ESC
+  - {t: ESC, h: LGUI}
   - {t: SPACE, h: SYM}
   - RET
   - BSPC
   - {t: TAB, h: NUM}
-  - DEL
+  - {t: LSHIFT, h: DEL}
   SYM:
   - '`'
   - <
@@ -111,9 +111,9 @@ layers:
   - DOWN
   - RIGHT
   - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - LGUI
+  - Sft+LGUI
+  - Ctl+LGUI
   - {t: ▽, type: trans}
   - {type: held}
   - {t: ▽, type: trans}
@@ -123,32 +123,32 @@ layers:
   - {t: BT, h: '2'}
   - {t: BT, h: '3'}
   - {t: BT, h: '4'}
-  - MUTE
-  - BRI DN
-  - BRI UP
   - {t: ▽, type: trans}
+  - MUTE
+  - VOL UP
+  - BRI UP
   - OUT TOG
   - BT CLR
   - BT PRV
   - BT NXT
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   - PP
-  - PREV
-  - VOL UP
   - VOL DN
+  - BRI DN
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - '&bootloader'
+  - '&sys_reset'
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - PREV
   - NEXT
   - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - '&sys_reset'
+  - '&bootloader'
   - {type: held}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -208,15 +208,3 @@ combos:
 - p: [17, 18]
   k: END
   l: [BASE]
-- p: [22, 23]
-  k: '&bootloader'
-  l: [ADJ]
-- p: [23, 24]
-  k: '&sys_reset'
-  l: [ADJ]
-- p: [27, 28]
-  k: '&sys_reset'
-  l: [ADJ]
-- p: [28, 29]
-  k: '&bootloader'
-  l: [ADJ]
