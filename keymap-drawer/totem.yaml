@@ -95,10 +95,10 @@ layers:
   - LSHFT
   - '-'
   - PAGE UP
-  - RSHFT
-  - RCTRL
-  - RALT
-  - RGUI
+  - LEFT
+  - UP
+  - DOWN
+  - RIGHT
   - FUN
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -106,10 +106,10 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - PAGE DOWN
-  - LEFT
-  - UP
-  - DOWN
-  - RIGHT
+  - HOME
+  - END
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - LGUI
   - Sft+LGUI
