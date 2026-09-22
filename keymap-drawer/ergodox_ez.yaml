@@ -324,11 +324,11 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - RGB SPI
+  - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - MS UP
   - {t: ▽, type: trans}
-  - RGB SAI
+  - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - MEDIA PREV TRACK
@@ -338,11 +338,11 @@ layers:
   - {t: ▽, type: trans}
   - TO( BASE)
   - {t: ▽, type: trans}
-  - RGB SPD
+  - {t: ▽, type: trans}
   - MS LEFT
   - MS DOWN
   - MS RIGHT
-  - RGB SAD
+  - {t: ▽, type: trans}
   - MEDIA PLAY PAUSE
   - MS WH LEFT
   - MS WH DOWN
@@ -350,11 +350,11 @@ layers:
   - BRIGHTNESS UP
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - RGB MODE FORWARD
-  - TOGGLE LAYER COLOR
-  - RGB VAD
-  - RGB VAI
-  - RGB TOG
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - RM TOGG
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -364,9 +364,9 @@ layers:
   - BRIGHTNESS DOWN
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - RGB HUD
-  - RGB HUI
-  - RGB SLD
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
