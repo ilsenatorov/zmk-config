@@ -45,7 +45,7 @@ jobs:
         run: |
           mkdir -p keymap-drawer
           keymap parse -q keymap-drawer/ergodox_ez.json \
-            -l BASE GAME SYM NUM ADJ FUN \
+            -l BASE GAME SYM NUM MOUSE \
             > keymap-drawer/ergodox_ez.yaml
           keymap draw -k "$QMK_DRAW_KEYBOARD" -l LAYOUT_ergodox_pretty \
             keymap-drawer/ergodox_ez.yaml \

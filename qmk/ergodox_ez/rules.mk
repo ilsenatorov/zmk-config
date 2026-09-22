@@ -10,7 +10,7 @@ MAGIC_ENABLE       = no
 MUSIC_ENABLE       = no
 LTO_ENABLE         = yes
 
-MOUSEKEY_ENABLE    = no  # mouse layer dropped; frees flash for combos/chordal hold
-COMBO_ENABLE       = yes # caps word, underscore, home, end
+MOUSEKEY_ENABLE    = yes # the MOUSE layer's cursor/wheel/button keys
+COMBO_ENABLE       = yes # the nine base-layer combos
 CAPS_WORD_ENABLE   = yes # target of the F+J combo
-EXTRAKEY_ENABLE    = yes # media/volume/brightness keys on ADJ
+EXTRAKEY_ENABLE    = yes # media/volume/brightness keys
