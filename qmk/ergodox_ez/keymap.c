@@ -10,6 +10,9 @@
 // left-to-right, matching the Oryx export's argument order; the thumb
 // cluster follows as three groups (top pair, inner pair, bottom triple),
 // left half then right half within each group.
+//
+// The three status LEDs (top right) show the highest active layer, using
+// Oryx's pattern — see layer_state_set_user() at the end of this file.
 
 #include QMK_KEYBOARD_H
 
@@ -262,6 +265,20 @@ RGB hsv_to_rgb_with_value(HSV hsv) {
 
 void keyboard_post_init_user(void) {
   rgb_matrix_enable();
+}
+
+// Status LEDs: one unique pattern per layer, following Oryx's convention
+// (BASE off, GAME 1, SYM 2, NUM 3, MOUSE 1+2). bit0 = LED1 .. bit2 = LED3.
+static const uint8_t layer_leds[] = {
+    [_BASE] = 0, [_GAME] = 1, [_SYM] = 2, [_NUM] = 4, [_MOUSE] = 1 | 2,
+};
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+  uint8_t leds = layer_leds[get_highest_layer(state)];
+  leds & 1 ? ergodox_right_led_1_on() : ergodox_right_led_1_off();
+  leds & 2 ? ergodox_right_led_2_on() : ergodox_right_led_2_off();
+  leds & 4 ? ergodox_right_led_3_on() : ergodox_right_led_3_off();
+  return state;
 }
 
 const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
