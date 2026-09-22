@@ -3,9 +3,9 @@
 //
 // Every layer rests on its own color, so the active one is obvious at a
 // glance: BASE a soft warm white, GAME a full-brightness rainbow drifting
-// slowly left to right, the others a pastel two-hue gradient each. On BASE
-// the same rainbow drifts underneath the white: a pressed key shows the
-// rainbow's color at its spot, at full brightness, then fades back.
+// slowly left to right, the others a pastel two-hue gradient each. On every
+// layer but GAME the same rainbow drifts underneath: a pressed key shows
+// the rainbow's color at its spot, at full brightness, then fades back.
 RGB_MATRIX_EFFECT(LAYER_GLOW)
 
 #ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
@@ -29,9 +29,9 @@ static const struct {
 } layer_glow[] = {
     {28, 28, 40, 110, false, true},     // BASE:  warm white
     {0, 0, 255, 255, true, false},      // GAME:  rainbow, full brightness
-    {185, 225, 150, 110, false, false}, // SYM:   lavender -> pink
-    {80, 120, 150, 110, false, false},  // NUM:   mint -> aqua
-    {140, 175, 150, 110, false, false}, // MOUSE: sky -> periwinkle
+    {185, 225, 150, 110, false, true},  // SYM:   lavender -> pink
+    {80, 120, 150, 110, false, true},   // NUM:   mint -> aqua
+    {140, 175, 150, 110, false, true},  // MOUSE: sky -> periwinkle
 };
 
 static bool LAYER_GLOW(effect_params_t* params) {

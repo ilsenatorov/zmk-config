@@ -58,7 +58,8 @@
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 80
 
 // RGB — a single custom effect (rgb_matrix_user.inc): per-layer colors (GAME
-// a drifting rainbow), and on BASE that rainbow revealed under pressed keys.
+// a drifting rainbow), and on every other layer that rainbow revealed under
+// pressed keys.
 // RGB_MATRIX_KEYPRESSES feeds it the per-key press tracker. Every stock
 // animation the board's config.h turns on is compiled out below, which also
 // frees the flash they took.
