@@ -58,9 +58,10 @@
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 80
 
 // RGB — a single custom effect (rgb_matrix_user.inc): per-layer colors, and
-// on BASE a rainbow revealed under pressed keys. RGB_MATRIX_KEYPRESSES feeds
-// it the per-key press tracker. Every stock animation the board's config.h
-// turns on is compiled out below, which also frees the flash they took.
+// on BASE and GAME a rainbow revealed under pressed keys.
+// RGB_MATRIX_KEYPRESSES feeds it the per-key press tracker. Every stock
+// animation the board's config.h turns on is compiled out below, which also
+// frees the flash they took.
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CUSTOM_LAYER_GLOW
 
