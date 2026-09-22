@@ -132,7 +132,14 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = LAYOUT_ergodo
     'L', 'L', 'L', 'L', 'L', 'L', 'L',                                        'R', 'R', 'R', 'R', 'R', 'R', 'R',
     'L', 'L', 'L', 'L', 'L', 'L',                                                       'R', 'R', 'R', 'R', 'R', 'R',
     'L', 'L', 'L', 'L', 'L', 'L', 'L',                                        'R', 'R', 'R', 'R', 'R', 'R', 'R',
-    'L', 'L', 'L', 'L', 'L',                                                                 'R', 'R', 'R', 'R', 'R',
+    // The 5th entry is MT(MOD_LGUI, KC_ESCAPE) — the main Super key, and a
+    // thumb key in all but name. It is '*' (exempt from the bilateral guard)
+    // on purpose: it is chorded with the LEFT hand constantly (Super+1..6,
+    // Super+Q/W/E, Super+Shift+...), and 'L' here made every one of those
+    // settle as a tap, so Super only registered if held past TAPPING_TERM.
+    // The Totem has the same key on a thumb, where plain &mt has no
+    // hold-trigger-key-positions guard at all.
+    'L', 'L', 'L', 'L', '*',                                                                 'R', 'R', 'R', 'R', 'R',
 
                              '*', '*',    '*', '*',
                                   '*',    '*',
