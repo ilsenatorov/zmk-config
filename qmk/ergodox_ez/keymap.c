@@ -2,9 +2,13 @@
 // bilateral chordal-hold guard and combos added to the base layer only.
 //
 // Layers [1]-[4] are carried over verbatim from the Oryx source export; the
-// only change to them is that their numeric indices now have names. The
+// only changes to them are that their numeric indices now have names and
+// the MOUSE layer's RGB controls are cut down to a single on/off key. The
 // GAME layer in particular is untouched: no mods, and combo_should_trigger()
 // keeps every combo off it.
+//
+// Lighting is one custom RGB effect (rgb_matrix_user.inc) instead of Oryx's
+// per-key ledmap and the stock animations, which config.h compiles out.
 //
 // Each LAYOUT_ergodox_pretty() row below combines both halves on one line,
 // left-to-right, matching the Oryx export's argument order; the thumb
@@ -12,14 +16,6 @@
 // left half then right half within each group.
 
 #include QMK_KEYBOARD_H
-
-#ifndef ZSA_SAFE_RANGE
-#define ZSA_SAFE_RANGE SAFE_RANGE
-#endif
-
-enum custom_keycodes {
-  RGB_SLD = ZSA_SAFE_RANGE,
-};
 
 enum layers {
     _BASE = 0,
@@ -110,10 +106,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_MOUSE] = LAYOUT_ergodox_pretty(
         KC_TRANSPARENT, KC_TRANSPARENT,   KC_TRANSPARENT,     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                   KC_TRANSPARENT, KC_TRANSPARENT,      KC_TRANSPARENT,      KC_TRANSPARENT, KC_TRANSPARENT,   KC_TRANSPARENT,     KC_TRANSPARENT,
-        KC_TRANSPARENT, RGB_SPI,          KC_TRANSPARENT,     KC_MS_UP,       KC_TRANSPARENT, RGB_SAI,        KC_TRANSPARENT,                   KC_TRANSPARENT, KC_MEDIA_PREV_TRACK, KC_MEDIA_NEXT_TRACK, KC_MS_WH_UP,    KC_TRANSPARENT,   KC_TRANSPARENT,     TO(_BASE),
-        KC_TRANSPARENT, RGB_SPD,          KC_MS_LEFT,         KC_MS_DOWN,     KC_MS_RIGHT,    RGB_SAD,                                                          KC_MEDIA_PLAY_PAUSE, KC_MS_WH_LEFT,       KC_MS_WH_DOWN,  KC_MS_WH_RIGHT,   KC_BRIGHTNESS_UP,   KC_TRANSPARENT,
-        KC_TRANSPARENT, RGB_MODE_FORWARD, TOGGLE_LAYER_COLOR, RGB_VAD,        RGB_VAI,        RGB_TOG,        KC_TRANSPARENT,                   KC_TRANSPARENT, KC_TRANSPARENT,      KC_MS_ACCEL0,        KC_MS_ACCEL1,   KC_MS_ACCEL2,     KC_BRIGHTNESS_DOWN, KC_TRANSPARENT,
-        KC_TRANSPARENT, RGB_HUD,          RGB_HUI,            RGB_SLD,        KC_TRANSPARENT,                                                                   KC_TRANSPARENT,      KC_TRANSPARENT,      KC_TRANSPARENT, KC_TRANSPARENT,   KC_TRANSPARENT,
+        KC_TRANSPARENT, KC_TRANSPARENT,   KC_TRANSPARENT,     KC_MS_UP,       KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                   KC_TRANSPARENT, KC_MEDIA_PREV_TRACK, KC_MEDIA_NEXT_TRACK, KC_MS_WH_UP,    KC_TRANSPARENT,   KC_TRANSPARENT,     TO(_BASE),
+        KC_TRANSPARENT, KC_TRANSPARENT,   KC_MS_LEFT,         KC_MS_DOWN,     KC_MS_RIGHT,    KC_TRANSPARENT,                                                      KC_MEDIA_PLAY_PAUSE, KC_MS_WH_LEFT,       KC_MS_WH_DOWN,  KC_MS_WH_RIGHT,   KC_BRIGHTNESS_UP,   KC_TRANSPARENT,
+        KC_TRANSPARENT, KC_TRANSPARENT,   KC_TRANSPARENT,     KC_TRANSPARENT, KC_TRANSPARENT, RM_TOGG,        KC_TRANSPARENT,                   KC_TRANSPARENT, KC_TRANSPARENT,      KC_MS_ACCEL0,        KC_MS_ACCEL1,   KC_MS_ACCEL2,     KC_BRIGHTNESS_DOWN, KC_TRANSPARENT,
+        KC_TRANSPARENT, KC_TRANSPARENT,   KC_TRANSPARENT,     KC_TRANSPARENT, KC_TRANSPARENT,                                                                   KC_TRANSPARENT,      KC_TRANSPARENT,      KC_TRANSPARENT, KC_TRANSPARENT,   KC_TRANSPARENT,
 
                                                                                         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
                                                                                                         KC_TRANSPARENT, KC_TRANSPARENT,
@@ -250,70 +246,11 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
     return true;
 }
 
-// --- Per-layer RGB, carried over verbatim from the Oryx export ---
-
-extern rgb_config_t rgb_matrix_config;
-
-RGB hsv_to_rgb_with_value(HSV hsv) {
-  RGB rgb = hsv_to_rgb( hsv );
-  float f = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
-  return (RGB){ f * rgb.r, f * rgb.g, f * rgb.b };
-}
+// --- RGB: one custom effect draws every layer, see rgb_matrix_user.inc ---
 
 void keyboard_post_init_user(void) {
-  rgb_matrix_enable();
-}
-
-const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
-    [_SYM] = { {31,255,255}, {31,255,255}, {31,255,255}, {31,255,255}, {31,255,255}, {209,255,255}, {41,255,255}, {41,255,255}, {209,255,255}, {209,255,255}, {209,255,255}, {41,255,255}, {41,255,255}, {209,255,255}, {209,255,255}, {209,255,255}, {41,255,255}, {41,255,255}, {209,255,255}, {209,255,255}, {0,183,238}, {0,183,238}, {0,183,238}, {0,183,238}, {31,255,255}, {31,255,255}, {31,255,255}, {31,255,255}, {31,255,255}, {209,255,255}, {209,255,255}, {74,255,255}, {74,255,255}, {209,255,255}, {209,255,255}, {209,255,255}, {209,255,255}, {209,255,255}, {209,255,255}, {209,255,255}, {209,255,255}, {209,255,255}, {209,255,255}, {209,255,255}, {209,255,255}, {209,255,255}, {209,255,255}, {209,255,255} },
-
-    [_NUM] = { {98,255,255}, {31,255,255}, {31,255,255}, {31,255,255}, {98,255,255}, {98,255,255}, {31,255,255}, {31,255,255}, {31,255,255}, {98,255,255}, {98,255,255}, {31,255,255}, {31,255,255}, {31,255,255}, {98,255,255}, {10,225,255}, {98,255,255}, {31,255,255}, {98,255,255}, {98,255,255}, {0,0,255}, {0,0,255}, {0,0,255}, {0,0,255}, {98,255,255}, {98,255,255}, {98,255,255}, {98,255,255}, {98,255,255}, {98,255,255}, {98,255,255}, {98,255,255}, {98,255,255}, {98,255,255}, {98,255,255}, {0,183,238}, {98,255,255}, {0,183,238}, {98,255,255}, {98,255,255}, {98,255,255}, {98,255,255}, {98,255,255}, {98,255,255}, {98,255,255}, {98,255,255}, {98,255,255}, {98,255,255} },
-
-    [_MOUSE] = { {30,96,255}, {30,96,255}, {30,96,255}, {30,96,255}, {30,96,255}, {169,120,255}, {169,120,255}, {31,255,255}, {195,255,255}, {195,255,255}, {169,120,255}, {31,255,255}, {31,255,255}, {31,255,255}, {146,224,255}, {195,255,255}, {15,166,195}, {15,166,195}, {15,166,195}, {146,224,255}, {10,225,255}, {10,225,255}, {10,225,255}, {10,225,255}, {30,96,255}, {30,96,255}, {30,96,255}, {30,96,255}, {30,96,255}, {195,255,255}, {195,255,255}, {10,225,255}, {195,255,255}, {195,255,255}, {195,255,255}, {10,225,255}, {10,225,255}, {10,225,255}, {195,255,255}, {195,255,255}, {195,255,255}, {195,255,255}, {195,255,255}, {195,255,255}, {195,255,255}, {195,255,255}, {195,255,255}, {195,255,255} },
-
-};
-
-void set_layer_color(int layer) {
-  for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
-    HSV hsv = {
-      .h = pgm_read_byte(&ledmap[layer][i][0]),
-      .s = pgm_read_byte(&ledmap[layer][i][1]),
-      .v = pgm_read_byte(&ledmap[layer][i][2]),
-    };
-    if (!hsv.h && !hsv.s && !hsv.v) {
-        rgb_matrix_set_color( i, 0, 0, 0 );
-    } else {
-        RGB rgb = hsv_to_rgb_with_value(hsv);
-        rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
-    }
-  }
-}
-
-bool rgb_matrix_indicators_user(void) {
-  if (rawhid_state.rgb_control) {
-      return false;
-  }
-  if (!keyboard_config.disable_layer_led) {
-    switch (biton32(layer_state)) {
-      case _SYM:
-        set_layer_color(_SYM);
-        break;
-      case _NUM:
-        set_layer_color(_NUM);
-        break;
-      case _MOUSE:
-        set_layer_color(_MOUSE);
-        break;
-     default:
-        if (rgb_matrix_get_flags() == LED_FLAG_NONE) {
-          rgb_matrix_set_color_all(0, 0, 0);
-        }
-    }
-  } else {
-    if (rgb_matrix_get_flags() == LED_FLAG_NONE) {
-      rgb_matrix_set_color_all(0, 0, 0);
-    }
-  }
-
-  return true;
+  // The effect mode is stored in EEPROM and may hold one of the removed
+  // stock animations, so pin it on every boot. On/off (RM_TOGG) is left
+  // alone and persists across replugs.
+  rgb_matrix_mode_noeeprom(RGB_MATRIX_CUSTOM_LAYER_GLOW);
 }

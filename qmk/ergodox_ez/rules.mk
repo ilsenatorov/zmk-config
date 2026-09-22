@@ -14,3 +14,4 @@ MOUSEKEY_ENABLE    = yes # the MOUSE layer's cursor/wheel/button keys
 COMBO_ENABLE       = yes # the nine base-layer combos
 CAPS_WORD_ENABLE   = yes # target of the F+J combo
 EXTRAKEY_ENABLE    = yes # media/volume/brightness keys
+RGB_MATRIX_CUSTOM_USER = yes # rgb_matrix_user.inc: the per-layer lighting effect
