@@ -50,16 +50,16 @@ layers:
   - '}'
   - $
   - '&'
-  - '!'
-  - '*'
-  - /
-  - '='
+  - {t: '!', h: LGUI}
+  - {t: '*', h: LALT}
+  - {t: /, h: LCTRL}
+  - {t: '=', h: LSHFT}
   - '?'
   - '#'
-  - (
-  - )
-  - ;
-  - '"'
+  - {t: (, h: RSHFT}
+  - {t: ), h: RCTRL}
+  - {t: ;, h: RALT}
+  - {t: '"', h: RGUI}
   - {t: ▽, type: trans}
   - '~'
   - +
