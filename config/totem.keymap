@@ -3,6 +3,7 @@
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/outputs.h>
 #include <dt-bindings/zmk/pointing.h>
+#include <behaviors/rgbled_widget.dtsi>
 
 #define BASE 0
 #define SYM  1
@@ -170,8 +171,8 @@
             display-name = "ADJ";
             bindings = <
                 &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4     &trans  &kp C_MUTE &kp C_VOL_UP &kp C_BRI_UP    &out OUT_TOG
-                &bt BT_CLR   &bt BT_PRV   &bt BT_NXT   &trans       &kp LS(PSCRN)           &trans   &kp C_PP   &kp C_VOL_DN &kp C_BRI_DN    &trans
-    &trans      &bootloader       &sys_reset  &trans       &trans   &kp  PSCRN       &kp C_PREV  &kp C_NEXT   &trans    &sys_reset     &bootloader      &trans
+                &bt BT_CLR   &bt BT_PRV   &bt BT_NXT   &ind_bat     &kp LS(PSCRN)           &trans   &kp C_PP   &kp C_VOL_DN &kp C_BRI_DN    &trans
+    &trans      &bootloader       &sys_reset  &ind_con     &trans   &kp  PSCRN       &kp C_PREV  &kp C_NEXT   &trans    &sys_reset     &bootloader      &trans
                                           &trans       &trans       &trans           &trans      &trans       &trans
             >;
         };

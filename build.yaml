@@ -20,6 +20,6 @@
 ---
 include:
   - board: xiao_ble/nrf52840/zmk
-    shield: totem_left
+    shield: totem_left rgbled_adapter
   - board: xiao_ble/nrf52840/zmk
-    shield: totem_right
+    shield: totem_right rgbled_adapter

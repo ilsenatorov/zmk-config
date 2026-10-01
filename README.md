@@ -1,8 +1,8 @@
 # zmk-config
 
-Personal firmware config for two keyboards: a [TOTEM](https://github.com/bildermankawasaki/zmk-keyboard-totem) — a 38-key column-staggered split, wireless (Seeed XIAO BLE) build on [ZMK](https://zmk.dev/) — and an ErgoDox EZ Glow on QMK, whose keymap deliberately mirrors the TOTEM's layer design.
+Personal firmware config for two keyboards: a [TOTEM](https://github.com/bildermankawasaki/zmk-keyboard-totem) — a 38-key column-staggered split, wireless (Seeed XIAO BLE) build on [ZMK](https://zmk.dev/) — and an ErgoDox EZ Glow on QMK. The ErgoDox runs its own layout (derived from an Oryx layout), sharing only the TOTEM's home-row mods and combos.
 
-See [CLAUDE.md](CLAUDE.md) for details on the repo layout and local build/flash workflow.
+See [AGENTS.md](AGENTS.md) for details on the repo layout and local build/flash workflow.
 
 ## TOTEM keymap
 

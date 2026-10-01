@@ -30,5 +30,5 @@ jobs:
           CHANGED="$(git diff --name-only "$BASE" "$HEAD")"
           if echo "$CHANGED" | grep -qx 'config/totem.keymap' && \
              ! echo "$CHANGED" | grep -qx 'qmk/ergodox_ez/keymap.c'; then
-            echo "::warning file=config/totem.keymap::config/totem.keymap changed but qmk/ergodox_ez/keymap.c did not. If this change should also apply to the ErgoDox (see CLAUDE.md, 'The ErgoDox EZ (QMK)'), port it there too — otherwise this warning is safe to ignore."
+            echo "::warning file=config/totem.keymap::config/totem.keymap changed but qmk/ergodox_ez/keymap.c did not. If this change should also apply to the ErgoDox (see AGENTS.md, 'The ErgoDox EZ (QMK)'), port it there too — otherwise this warning is safe to ignore."
           fi

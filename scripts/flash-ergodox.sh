@@ -31,8 +31,7 @@ if [ ! -e /etc/udev/rules.d/50-zsa.rules ]; then
 fi
 
 echo
-echo ">>> Press the reset button on the ErgoDox (paperclip hole, top-right of the right half) now,"
-echo ">>> or hold ADJ + the QK_BOOT key if it's already running this keymap."
+echo ">>> Press the reset button on the ErgoDox (paperclip hole, top-right of the right half) now."
 echo ">>> Waiting up to 60s for the HalfKay bootloader..."
 
 FOUND=0

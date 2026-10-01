@@ -44,7 +44,7 @@ docker run --rm \
 
 FREE_BYTES="$(grep -oE '[0-9]+ bytes free' "$QMK_DIR/build.log" | grep -oE '^[0-9]+' || true)"
 if [ -n "$FREE_BYTES" ] && [ "$FREE_BYTES" -lt 512 ]; then
-  echo "WARNING: only $FREE_BYTES bytes of flash free — see the flash budget notes in the repo's CLAUDE.md" >&2
+  echo "WARNING: only $FREE_BYTES bytes of flash free — see the flash budget notes in the repo's AGENTS.md" >&2
 fi
 
 echo "Firmware ready: $REPO_DIR/firmware/ergodox_ez_glow.hex"
