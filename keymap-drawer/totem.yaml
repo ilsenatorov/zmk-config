@@ -131,7 +131,7 @@ layers:
   - BT CLR
   - BT PRV
   - BT NXT
-  - {t: ▽, type: trans}
+  - '&ind_bat'
   - Sft+PSCRN
   - {t: ▽, type: trans}
   - PP
@@ -141,7 +141,7 @@ layers:
   - {t: ▽, type: trans}
   - '&bootloader'
   - '&sys_reset'
-  - {t: ▽, type: trans}
+  - '&ind_con'
   - {t: ▽, type: trans}
   - PSCRN
   - PREV
