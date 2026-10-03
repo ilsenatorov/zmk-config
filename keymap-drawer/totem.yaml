@@ -142,7 +142,7 @@ layers:
   - '&bootloader'
   - '&sys_reset'
   - '&ind_con'
-  - {t: ▽, type: trans}
+  - '&bat_type'
   - PSCRN
   - PREV
   - NEXT
