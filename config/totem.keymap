@@ -5,11 +5,12 @@
 #include <dt-bindings/zmk/pointing.h>
 #include <behaviors/rgbled_widget.dtsi>
 
-#define BASE 0
-#define SYM  1
-#define NUM  2
-#define ADJ  3
-#define FUN  4
+#define BASE   0
+#define QWERTY 1
+#define SYM    2
+#define NUM    3
+#define ADJ    4
+#define FUN    5
 
 // Physical key positions (see totem-layout.dtsi), used for the bilateral
 // home-row-mod guard below:
@@ -77,35 +78,35 @@
             require-prior-idle-ms = <100>;
             key-positions = <13 16>;
             bindings = <&caps_word>;
-            layers = <BASE>;
+            layers = <BASE QWERTY>;
         };
 
         combo_underscore {
             timeout-ms = <35>;
             key-positions = <22 23>;
             bindings = <&kp UNDER>;
-            layers = <BASE>;
+            layers = <BASE QWERTY>;
         };
 
         combo_minus {
             timeout-ms = <35>;
             key-positions = <23 24>;
             bindings = <&kp MINUS>;
-            layers = <BASE>;
+            layers = <BASE QWERTY>;
         };
 
         combo_colon {
             timeout-ms = <35>;
             key-positions = <18 19>;
             bindings = <&kp COLON>;
-            layers = <BASE>;
+            layers = <BASE QWERTY>;
         };
 
         combo_qmark {
             timeout-ms = <35>;
             key-positions = <29 30>;
             bindings = <&kp QMARK>;
-            layers = <BASE>;
+            layers = <BASE QWERTY>;
         };
 
 
@@ -113,7 +114,7 @@
             timeout-ms = <35>;
             key-positions = <16 17>;
             bindings = <&kp HOME>;
-            layers = <BASE>;
+            layers = <BASE QWERTY>;
         };
 
 
@@ -121,7 +122,7 @@
             timeout-ms = <35>;
             key-positions = <17 18>;
             bindings = <&kp END>;
-            layers = <BASE>;
+            layers = <BASE QWERTY>;
         };
 
 
@@ -129,27 +130,45 @@
             timeout-ms = <35>;
             key-positions = <12 13>;
             bindings = <&kp SQT>;
-            layers = <BASE>;
+            layers = <BASE QWERTY>;
         };
 
     combo_double_quote {
             timeout-ms = <35>;
             key-positions = <11 12>;
             bindings = <&kp DQT>;
-            layers = <BASE>;
+            layers = <BASE QWERTY>;
         };
     };
 
     keymap {
         compatible = "zmk,keymap";
 
+        // Graphite (github.com/rdavison/graphite-layout), squeezed onto 3x10:
+        // its 11th-column `,` takes the bottom-row `-` slot (position 29), and
+        // `-` lives on the m+c combo, SYM and NUM instead. Shifted punctuation
+        // is the plain US pairs, not Graphite's custom ones.
         base_layer {
             display-name = "BASE";
             bindings = <
+                &kp B        &kp L        &kp D         &kp W         &kp Z       &kp SQT    &kp F         &kp O         &kp U        &kp J
+                &hml LGUI N  &hml LALT R  &hml LCTRL T  &hml LSHFT S  &kp G       &kp Y      &hmr RSHFT H  &hmr RCTRL A  &hmr RALT E  &hmr RGUI I
+    &mo FUN   &kp Q        &kp X        &kp M         &kp C         &kp V       &kp K      &kp P         &kp DOT       &kp COMMA    &kp FSLH    &mo ADJ
+                                          &mt LGUI  ESC   &lt SYM SPACE &kp RET     &kp BSPC   &lt NUM TAB   &mt LSHIFT DEL
+            >;
+        };
+
+        // The old QWERTY base, as a fallback while learning Graphite: toggled
+        // from ADJ (position 5). Sits right above BASE so every other layer
+        // still overrides it; only the 30 alpha keys are set, the rest fall
+        // through to BASE.
+        qwerty_layer {
+            display-name = "QWERTY";
+            bindings = <
                 &kp Q        &kp W        &kp E         &kp R         &kp T       &kp Y      &kp U         &kp I         &kp O        &kp P
                 &hml LGUI A  &hml LALT S  &hml LCTRL D  &hml LSHFT F  &kp G       &kp H      &hmr RSHFT J  &hmr RCTRL K  &hmr RALT L  &hmr RGUI SEMI
-    &mo FUN   &kp Z        &kp X        &kp C         &kp V         &kp B       &kp N      &kp M         &kp COMMA     &kp DOT      &kp FSLH    &mo ADJ
-                                          &mt LGUI  ESC   &lt SYM SPACE &kp RET     &kp BSPC   &lt NUM TAB   &mt LSHIFT DEL
+    &trans    &kp Z        &kp X        &kp C         &kp V         &kp B       &kp N      &kp M         &kp COMMA     &kp DOT      &kp FSLH    &trans
+                                          &trans          &trans        &trans      &trans     &trans        &trans
             >;
         };
 
@@ -177,7 +196,7 @@
         adjust_layer {
             display-name = "ADJ";
             bindings = <
-                &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4     &trans  &kp C_MUTE &kp C_VOL_UP &kp C_BRI_UP    &out OUT_TOG
+                &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4     &tog QWERTY  &kp C_MUTE &kp C_VOL_UP &kp C_BRI_UP    &out OUT_TOG
                 &bt BT_CLR   &bt BT_PRV   &bt BT_NXT   &ind_bat     &kp LS(PSCRN)           &trans   &kp C_PP   &kp C_VOL_DN &kp C_BRI_DN    &trans
     &trans      &bootloader       &sys_reset  &ind_con     &bat_type &kp  PSCRN       &kp C_PREV  &kp C_NEXT   &trans    &sys_reset     &bootloader      &trans
                                           &trans       &trans       &trans           &trans      &trans       &trans

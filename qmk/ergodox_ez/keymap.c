@@ -49,11 +49,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Note the deliberate 5/6 duplication across the halves on the number
     // row — the left half is 1-6, the right half is 5-0. That is how the
     // Oryx layout is; it is not a transcription slip.
+    //
+    // The alphas are Graphite, laid out exactly as on the Totem (see
+    // config/totem.keymap): `,` takes Graphite's `-` slot on the bottom row,
+    // and `-` comes from the m+c combo or SYM. The Oryx export's
+    // LT(_NUM, KC_N) stays on the same key, which now taps K.
     [_BASE] = LAYOUT_ergodox_pretty(
         KC_ESCAPE,      NUMF(KC_1),         NUMF(KC_2),         NUMF(KC_3),         NUMF(KC_4),           NUMF(KC_5), NUMF(KC_6),              NUMF(KC_5),     NUMF(KC_6),         NUMF(KC_7),         NUMF(KC_8),         NUMF(KC_9),            NUMF(KC_0), KC_TRANSPARENT,
-        KC_TAB,         KC_Q,               KC_W,               KC_E,               KC_R,                 KC_T,       KC_HOME,                 KC_PAGE_UP,     KC_Y,               KC_U,               KC_I,               KC_O,                  KC_P,       TG(_NUM),
-        KC_LEFT_CTRL,   MT(MOD_LGUI, KC_A), MT(MOD_LALT, KC_S), MT(MOD_LCTL, KC_D), MT(MOD_LSFT, KC_F),   KC_G,                                                KC_H,               MT(MOD_RSFT, KC_J), MT(MOD_RCTL, KC_K), MT(MOD_RALT, KC_L),    MT(MOD_RGUI, KC_SCLN), TG(_GAME),
-        KC_LEFT_SHIFT,  KC_Z,               KC_X,               KC_C,               KC_V,                 KC_B,       KC_END,                  KC_PGDN,        LT(_NUM, KC_N),     KC_M,               KC_COMMA,           KC_DOT,                KC_SLASH,   TG(_MOUSE),
+        KC_TAB,         KC_B,               KC_L,               KC_D,               KC_W,                 KC_Z,       KC_HOME,                 KC_PAGE_UP,     KC_QUOTE,           KC_F,               KC_O,               KC_U,                  KC_J,       TG(_NUM),
+        KC_LEFT_CTRL,   MT(MOD_LGUI, KC_N), MT(MOD_LALT, KC_R), MT(MOD_LCTL, KC_T), MT(MOD_LSFT, KC_S),   KC_G,                                                KC_Y,               MT(MOD_RSFT, KC_H), MT(MOD_RCTL, KC_A), MT(MOD_RALT, KC_E),    MT(MOD_RGUI, KC_I),    TG(_GAME),
+        KC_LEFT_SHIFT,  KC_Q,               KC_X,               KC_M,               KC_C,                 KC_V,       KC_END,                  KC_PGDN,        LT(_NUM, KC_K),     KC_P,               KC_DOT,             KC_COMMA,              KC_SLASH,   TG(_MOUSE),
         LCTL(KC_LEFT_SHIFT), LCTL(KC_LEFT_ALT), LALT(KC_LEFT_SHIFT), KC_LEFT_ALT,   MT(MOD_LGUI, KC_ESCAPE),                                                                       KC_LEFT,            KC_UP,              KC_DOWN,               KC_RIGHT,   KC_LEFT_GUI,
 
                                                                                                           KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP,  KC_PSCR,        LSFT(KC_PSCR),
@@ -61,18 +66,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                  LT(_SYM, KC_SPACE), MT(MOD_LCTL, KC_TAB), KC_ENTER,                           KC_DELETE,      KC_BSPC,            KC_RIGHT_SHIFT
     ),
 
-    // Gaming layer — deliberately left exactly as exported. No home-row
-    // mods; combos are gated off it in combo_should_trigger().
+    // Gaming layer — plain QWERTY, no home-row mods; combos are gated off it
+    // in combo_should_trigger(). Doubles as the QWERTY fallback while
+    // learning Graphite (TG(_GAME), right home-row outer key).
     [_GAME] = LAYOUT_ergodox_pretty(
         KC_TRANSPARENT, KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           KC_6,                                   KC_5,           KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-        // The home row is pinned to plain letters here. The Oryx export left
-        // it KC_TRANSPARENT, which fell through to a base layer that had
-        // plain KC_A..KC_SCLN — now that base has mod-taps, transparent would
-        // silently give the GAME layer home-row mods. Same reason the export
-        // already pins KC_N below instead of inheriting LT(_NUM, KC_N).
-        KC_TRANSPARENT, KC_A,           KC_S,           KC_D,           KC_F,           KC_TRANSPARENT,                                                         KC_TRANSPARENT, KC_J,           KC_K,           KC_L,           KC_SCLN,        KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                         KC_TRANSPARENT, KC_N,           KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+        // All 30 alphas are pinned to QWERTY. The Oryx export left most of
+        // them KC_TRANSPARENT, which fell through to a QWERTY base with plain
+        // letters; with a Graphite base that has home-row mods, transparent
+        // would give this layer Graphite letters and mod-taps (WASD gone).
+        KC_TRANSPARENT, KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           KC_TRANSPARENT,                         KC_TRANSPARENT, KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_TRANSPARENT,
+        KC_TRANSPARENT, KC_A,           KC_S,           KC_D,           KC_F,           KC_G,                                                                   KC_H,           KC_J,           KC_K,           KC_L,           KC_SCLN,        KC_TRANSPARENT,
+        KC_TRANSPARENT, KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,           KC_TRANSPARENT,                         KC_TRANSPARENT, KC_N,           KC_M,           KC_COMMA,       KC_DOT,         KC_SLASH,       KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_SPACE,                                                                               KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
 
                                                                                         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
@@ -200,17 +205,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-// The Totem's nine base-layer combos, on the same letter pairs. Home-row
-// keys must be referenced by their MT() keycode, not the bare letter.
-const uint16_t PROGMEM combo_caps[] = {MT(MOD_LSFT, KC_F), MT(MOD_RSFT, KC_J), COMBO_END};
-const uint16_t PROGMEM combo_dquo[] = {MT(MOD_LALT, KC_S), MT(MOD_LCTL, KC_D), COMBO_END};
-const uint16_t PROGMEM combo_quot[] = {MT(MOD_LCTL, KC_D), MT(MOD_LSFT, KC_F), COMBO_END};
-const uint16_t PROGMEM combo_home[] = {MT(MOD_RSFT, KC_J), MT(MOD_RCTL, KC_K), COMBO_END};
-const uint16_t PROGMEM combo_end[]  = {MT(MOD_RCTL, KC_K), MT(MOD_RALT, KC_L), COMBO_END};
-const uint16_t PROGMEM combo_coln[] = {MT(MOD_RALT, KC_L), MT(MOD_RGUI, KC_SCLN), COMBO_END};
-const uint16_t PROGMEM combo_unds[] = {KC_X, KC_C, COMBO_END};
-const uint16_t PROGMEM combo_mins[] = {KC_C, KC_V, COMBO_END};
-const uint16_t PROGMEM combo_ques[] = {KC_DOT, KC_SLASH, COMBO_END};
+// The Totem's nine base-layer combos, on the same key positions. QMK combos
+// match keycodes, not positions, so these name whatever Graphite letter now
+// sits on each key. Home-row keys must be referenced by their MT() keycode,
+// not the bare letter.
+const uint16_t PROGMEM combo_caps[] = {MT(MOD_LSFT, KC_S), MT(MOD_RSFT, KC_H), COMBO_END};
+const uint16_t PROGMEM combo_dquo[] = {MT(MOD_LALT, KC_R), MT(MOD_LCTL, KC_T), COMBO_END};
+const uint16_t PROGMEM combo_quot[] = {MT(MOD_LCTL, KC_T), MT(MOD_LSFT, KC_S), COMBO_END};
+const uint16_t PROGMEM combo_home[] = {MT(MOD_RSFT, KC_H), MT(MOD_RCTL, KC_A), COMBO_END};
+const uint16_t PROGMEM combo_end[]  = {MT(MOD_RCTL, KC_A), MT(MOD_RALT, KC_E), COMBO_END};
+const uint16_t PROGMEM combo_coln[] = {MT(MOD_RALT, KC_E), MT(MOD_RGUI, KC_I), COMBO_END};
+const uint16_t PROGMEM combo_unds[] = {KC_X, KC_M, COMBO_END};
+const uint16_t PROGMEM combo_mins[] = {KC_M, KC_C, COMBO_END};
+const uint16_t PROGMEM combo_ques[] = {KC_COMMA, KC_SLASH, COMBO_END};
 
 combo_t key_combos[] = {
     [CB_CAPS] = COMBO(combo_caps, CW_TOGG),
@@ -239,7 +246,7 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
     if (get_highest_layer(layer_state) != _BASE) {
         return false;
     }
-    // require-prior-idle-ms = <100> on the Totem: stops F+J firing mid-word.
+    // require-prior-idle-ms = <100> on the Totem: stops S+H firing mid-word.
     if (combo_index == CB_CAPS && timer_elapsed(last_key_time) < 100) {
         return false;
     }
