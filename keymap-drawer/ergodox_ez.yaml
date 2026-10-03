@@ -16,43 +16,43 @@ layers:
   - NUMF(0)
   - {t: ▽, type: trans}
   - TAB
-  - Q
+  - B
+  - L
+  - D
   - W
-  - E
-  - R
-  - T
+  - Z
   - HOME
   - PAGE UP
-  - Y
-  - U
-  - I
+  - ''''
+  - F
   - O
-  - P
+  - U
+  - J
   - TG( NUM)
   - LEFT CTRL
-  - {t: A, h: MOD_LGUI}
-  - {t: S, h: MOD_LALT}
-  - {t: D, h: MOD_LCTL}
-  - {t: F, h: MOD_LSFT}
+  - {t: N, h: MOD_LGUI}
+  - {t: R, h: MOD_LALT}
+  - {t: T, h: MOD_LCTL}
+  - {t: S, h: MOD_LSFT}
   - G
-  - H
-  - {t: J, h: MOD_RSFT}
-  - {t: K, h: MOD_RCTL}
-  - {t: L, h: MOD_RALT}
-  - {t: ;, h: MOD_RGUI}
+  - Y
+  - {t: H, h: MOD_RSFT}
+  - {t: A, h: MOD_RCTL}
+  - {t: E, h: MOD_RALT}
+  - {t: I, h: MOD_RGUI}
   - TG( GAME)
   - LEFT SHIFT
-  - Z
+  - Q
   - X
+  - M
   - C
   - V
-  - B
   - END
   - PGDN
-  - LT( NUM,N)
-  - M
-  - ','
+  - LT( NUM,K)
+  - P
   - .
+  - ','
   - /
   - TG( MOUSE)
   - Ctl+LEFT SHIFT
@@ -93,44 +93,44 @@ layers:
   - '0'
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
+  - Q
+  - W
+  - E
+  - R
+  - T
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - Y
+  - U
+  - I
+  - O
+  - P
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - A
   - S
   - D
   - F
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - G
+  - H
   - J
   - K
   - L
   - ;
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - Z
+  - X
+  - C
+  - V
+  - B
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - N
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - M
+  - ','
+  - .
+  - /
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
