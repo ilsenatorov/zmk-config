@@ -1,0 +1,13 @@
+description: Types the battery level of each split half, e.g. "L87 R64"
+
+compatible: "zmk,behavior-battery-type"
+
+include: zero_param.yaml
+
+properties:
+  tap-ms:
+    type: int
+    default: 30
+  wait-ms:
+    type: int
+    default: 15

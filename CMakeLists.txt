@@ -1,0 +1,5 @@
+# Central-only, like ZMK's own macro behavior: it needs behavior_queue.c, which
+# ZMK only builds on the central.
+if ((NOT CONFIG_ZMK_SPLIT) OR CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
+  target_sources_ifdef(CONFIG_ZMK_BEHAVIOR_BATTERY_TYPE app PRIVATE src/behaviors/behavior_battery_type.c)
+endif()

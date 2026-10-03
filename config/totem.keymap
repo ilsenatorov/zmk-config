@@ -59,6 +59,13 @@
             hold-trigger-key-positions = <KEYS_L THUMBS>;
             hold-trigger-on-release;
         };
+
+        // Types each half's battery level ("L87 R64"; "R?" = right half not
+        // connected / not reported yet). Defined in src/behaviors/ in this repo.
+        bat_type: battery_type {
+            compatible = "zmk,behavior-battery-type";
+            #binding-cells = <0>;
+        };
     };
 
     combos {
@@ -172,7 +179,7 @@
             bindings = <
                 &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4     &trans  &kp C_MUTE &kp C_VOL_UP &kp C_BRI_UP    &out OUT_TOG
                 &bt BT_CLR   &bt BT_PRV   &bt BT_NXT   &ind_bat     &kp LS(PSCRN)           &trans   &kp C_PP   &kp C_VOL_DN &kp C_BRI_DN    &trans
-    &trans      &bootloader       &sys_reset  &ind_con     &trans   &kp  PSCRN       &kp C_PREV  &kp C_NEXT   &trans    &sys_reset     &bootloader      &trans
+    &trans      &bootloader       &sys_reset  &ind_con     &bat_type &kp  PSCRN       &kp C_PREV  &kp C_NEXT   &trans    &sys_reset     &bootloader      &trans
                                           &trans       &trans       &trans           &trans      &trans       &trans
             >;
         };
