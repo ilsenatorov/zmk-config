@@ -16,20 +16,20 @@
 
 // Tap-hold tuning — ported from config/totem.keymap's hml/hmr/&lt behaviors.
 // The Oryx export used TAPPING_TERM 180, which is too short to hold a
-// home-row mod reliably; 280 matches the Totem. It also lengthens the hold
+// home-row mod reliably; 200 matches the Totem. It also lengthens the hold
 // on the Space and Tab thumb keys.
-//   tapping-term-ms 280        -> TAPPING_TERM
+//   tapping-term-ms 200        -> TAPPING_TERM
 //   quick-tap-ms 175           -> QUICK_TAP_TERM
-//   require-prior-idle-ms 50   -> FLOW_TAP_TERM
+//   require-prior-idle-ms 140  -> FLOW_TAP_TERM
 //   flavor "balanced"          -> PERMISSIVE_HOLD
 //   hold-trigger-key-positions -> CHORDAL_HOLD (chordal_hold_layout in keymap.c)
 #undef TAPPING_TERM
-#define TAPPING_TERM 280
+#define TAPPING_TERM 200
 #define QUICK_TAP_TERM 175
 #define PERMISSIVE_HOLD
 #define PERMISSIVE_HOLD_PER_KEY // thumb tap-holds + number row are tap-preferred instead
 #define CHORDAL_HOLD
-#define FLOW_TAP_TERM 50
+#define FLOW_TAP_TERM 140
 
 // Combos — COMBO_TERM_PER_COMBO and COMBO_SHOULD_TRIGGER are load-bearing:
 // without them QMK silently ignores get_combo_term() and

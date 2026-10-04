@@ -34,15 +34,16 @@
     behaviors {
         // Timer-less home-row mods: with `balanced` plus the positional guard
         // and hold-trigger-on-release, an opposite-hand keypress resolves the
-        // hold immediately and the tapping term almost never runs. The long
-        // term only makes a deliberate slow hold more reliable.
+        // hold immediately and the tapping term almost never runs. 200 ms is
+        // from a measured calibration: taps p95 112 ms, deliberate holds >200.
+        // require-prior-idle-ms is urob's 10500/WPM rule at 75 WPM.
         hml: home_row_mod_left {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "balanced";
-            tapping-term-ms = <280>;
+            tapping-term-ms = <200>;
             quick-tap-ms = <175>;
-            require-prior-idle-ms = <50>;
+            require-prior-idle-ms = <140>;
             bindings = <&kp>, <&kp>;
             hold-trigger-key-positions = <KEYS_R THUMBS>;
             hold-trigger-on-release;
@@ -52,9 +53,9 @@
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "balanced";
-            tapping-term-ms = <280>;
+            tapping-term-ms = <200>;
             quick-tap-ms = <175>;
-            require-prior-idle-ms = <50>;
+            require-prior-idle-ms = <140>;
             bindings = <&kp>, <&kp>;
             hold-trigger-key-positions = <KEYS_L THUMBS>;
             hold-trigger-on-release;
