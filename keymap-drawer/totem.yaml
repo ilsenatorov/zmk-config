@@ -32,7 +32,7 @@ layers:
   - ','
   - .
   - /
-  - {t: '''', h: ADJ}
+  - ADJ
   - {t: ESC, h: LGUI}
   - {t: SPACE, h: SYM}
   - RET

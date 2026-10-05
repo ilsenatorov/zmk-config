@@ -262,9 +262,8 @@ path.combo {
 </g>
 <g transform="translate(816, 209) rotate(10.0)" class="key keypos-31">
 <rect rx="6" ry="6" x="-28" y="-26" width="55" height="52" class="key"/>
-<text x="0" y="0" class="key tap">&#x27;</text>
 <a href="#ADJ">
-<text x="0" y="24" class="key hold layer-activator">ADJ</text>
+<text x="0" y="0" class="key tap layer-activator">ADJ</text>
 </a></g>
 <g transform="translate(255, 236)" class="key keypos-32">
 <rect rx="6" ry="6" x="-28" y="-26" width="55" height="52" class="key"/>
