@@ -262,8 +262,9 @@ path.combo {
 </g>
 <g transform="translate(816, 209) rotate(10.0)" class="key keypos-31">
 <rect rx="6" ry="6" x="-28" y="-26" width="55" height="52" class="key"/>
+<text x="0" y="0" class="key tap">&#x27;</text>
 <a href="#ADJ">
-<text x="0" y="0" class="key tap layer-activator">ADJ</text>
+<text x="0" y="24" class="key hold layer-activator">ADJ</text>
 </a></g>
 <g transform="translate(255, 236)" class="key keypos-32">
 <rect rx="6" ry="6" x="-28" y="-26" width="55" height="52" class="key"/>
@@ -390,12 +391,12 @@ path.combo {
 </g>
 <g transform="translate(212, 84)" class="key keypos-12">
 <rect rx="6" ry="6" x="-28" y="-26" width="55" height="52" class="key"/>
-<text x="0" y="0" class="key tap">/</text>
+<text x="0" y="0" class="key tap">&quot;</text>
 <text x="0" y="24" class="key hold">LCTRL</text>
 </g>
 <g transform="translate(271, 112)" class="key keypos-13">
 <rect rx="6" ry="6" x="-28" y="-26" width="55" height="52" class="key"/>
-<text x="0" y="0" class="key tap">=</text>
+<text x="0" y="0" class="key tap">&#x27;</text>
 <text x="0" y="24" class="key hold">LSHFT</text>
 </g>
 <g transform="translate(330, 121)" class="key keypos-14">
@@ -423,7 +424,7 @@ path.combo {
 </g>
 <g transform="translate(764, 168) rotate(10.0)" class="key keypos-19">
 <rect rx="6" ry="6" x="-28" y="-26" width="55" height="52" class="key"/>
-<text x="0" y="0" class="key tap">&quot;</text>
+<text x="0" y="0" class="key tap">=</text>
 <text x="0" y="24" class="key hold">RGUI</text>
 </g>
 <g transform="translate(34, 209) rotate(-10.0)" class="key trans keypos-20">
@@ -468,7 +469,7 @@ path.combo {
 </g>
 <g transform="translate(754, 223) rotate(10.0)" class="key keypos-30">
 <rect rx="6" ry="6" x="-28" y="-26" width="55" height="52" class="key"/>
-<text x="0" y="0" class="key tap">&#x27;</text>
+<text x="0" y="0" class="key tap">/</text>
 </g>
 <g transform="translate(816, 209) rotate(10.0)" class="key trans keypos-31">
 <rect rx="6" ry="6" x="-28" y="-26" width="55" height="52" class="key trans"/>
