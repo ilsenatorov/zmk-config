@@ -40,7 +40,7 @@ layers:
   - {t: TAB, h: NUM}
   - {t: DEL, h: LSHIFT}
   SYM:
-  - '`'
+  - '%'
   - <
   - '>'
   - '-'
@@ -54,19 +54,19 @@ layers:
   - {t: '*', h: LALT}
   - {t: '"', h: LCTRL}
   - {t: '''', h: LSHFT}
-  - '?'
+  - '~'
   - '#'
   - {t: (, h: RSHFT}
   - {t: ), h: RCTRL}
   - {t: ;, h: RALT}
-  - {t: '=', h: RGUI}
+  - {t: ':', h: RGUI}
   - {t: ▽, type: trans}
-  - '~'
+  - '?'
   - +
-  - ':'
+  - '='
   - _
   - '%'
-  - '@'
+  - '`'
   - '['
   - ']'
   - \
