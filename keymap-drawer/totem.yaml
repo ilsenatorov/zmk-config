@@ -32,7 +32,7 @@ layers:
   - ','
   - .
   - /
-  - ADJ
+  - {t: '''', h: ADJ}
   - {t: ESC, h: LGUI}
   - {t: SPACE, h: SYM}
   - RET
@@ -52,14 +52,14 @@ layers:
   - '&'
   - {t: '!', h: LGUI}
   - {t: '*', h: LALT}
-  - {t: /, h: LCTRL}
-  - {t: '=', h: LSHFT}
+  - {t: '"', h: LCTRL}
+  - {t: '''', h: LSHFT}
   - '?'
   - '#'
   - {t: (, h: RSHFT}
   - {t: ), h: RCTRL}
   - {t: ;, h: RALT}
-  - {t: '"', h: RGUI}
+  - {t: '=', h: RGUI}
   - {t: ▽, type: trans}
   - '~'
   - +
@@ -70,7 +70,7 @@ layers:
   - '['
   - ']'
   - \
-  - ''''
+  - /
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {type: held}
