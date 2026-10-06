@@ -170,9 +170,9 @@ layers:
   - F10
   - F11
   - {t: ▽, type: trans}
-  - '`'
   - <
   - '>'
+  - '='
   - '-'
   - '|'
   - {t: ▽, type: trans}
@@ -184,30 +184,30 @@ layers:
   - '&'
   - F12
   - {t: ▽, type: trans}
-  - '!'
-  - '*'
-  - /
-  - '='
-  - '&'
-  - '#'
-  - (
-  - )
-  - ;
-  - '"'
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - {t: '1', h: MOD_LGUI}
+  - {t: /, h: MOD_LALT}
+  - {t: '''', h: MOD_LCTL}
+  - {t: '''', h: MOD_LSFT}
   - '~'
+  - '#'
+  - {t: '9', h: MOD_RSFT}
+  - {t: '0', h: MOD_RCTL}
+  - {t: ;, h: MOD_RALT}
+  - {t: ;, h: MOD_RGUI}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - '*'
   - +
-  - _
-  - ':'
   - '%'
+  - _
+  - '`'
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - '@'
   - '['
   - ']'
   - \
-  - ''''
+  - /
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
