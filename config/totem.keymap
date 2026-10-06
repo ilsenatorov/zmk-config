@@ -21,6 +21,19 @@
 #define KEYS_R  5 6 7 8 9    15 16 17 18 19    26 27 28 29 30 31
 #define THUMBS  32 33 34 35 36 37
 
+// Same-hand adjacent-key combos on BASE. COMBO_IDLE keeps fast rolls (e.g.
+// "er" over the E+R combo) from firing them mid-word.
+#define COMBO_TERM 35
+#define COMBO_IDLE 100
+#define COMBO(name, keys, binding) \
+    combo_##name { \
+        timeout-ms = <COMBO_TERM>; \
+        require-prior-idle-ms = <COMBO_IDLE>; \
+        key-positions = <keys>; \
+        bindings = <binding>; \
+        layers = <BASE>; \
+    };
+
 // Upstream &lt has no quick-tap-ms, so holding a thumb key after tapping it
 // re-enters the layer instead of repeating the tap. Space is the most-tapped
 // key on the board; this makes hold-to-repeat work on Space/Esc/Tab.
@@ -72,73 +85,24 @@
     combos {
         compatible = "zmk,combos";
 
-
+        // Cross-hand chord: the two index fingers land less in sync than
+        // adjacent fingers on one hand, so it gets a longer window than COMBO.
         combo_caps_word {
             timeout-ms = <50>;
-            require-prior-idle-ms = <100>;
+            require-prior-idle-ms = <COMBO_IDLE>;
             key-positions = <13 16>;
             bindings = <&caps_word>;
             layers = <BASE>;
         };
 
-        combo_underscore {
-            timeout-ms = <35>;
-            key-positions = <22 23>;
-            bindings = <&kp UNDER>;
-            layers = <BASE>;
-        };
-
-        combo_minus {
-            timeout-ms = <35>;
-            key-positions = <23 24>;
-            bindings = <&kp MINUS>;
-            layers = <BASE>;
-        };
-
-        combo_colon {
-            timeout-ms = <35>;
-            key-positions = <18 19>;
-            bindings = <&kp COLON>;
-            layers = <BASE>;
-        };
-
-        combo_qmark {
-            timeout-ms = <35>;
-            key-positions = <29 30>;
-            bindings = <&kp QMARK>;
-            layers = <BASE>;
-        };
-
-
-        combo_home {
-            timeout-ms = <35>;
-            key-positions = <16 17>;
-            bindings = <&kp HOME>;
-            layers = <BASE>;
-        };
-
-
-        combo_end {
-            timeout-ms = <35>;
-            key-positions = <17 18>;
-            bindings = <&kp END>;
-            layers = <BASE>;
-        };
-
-
-    combo_single_quote {
-            timeout-ms = <35>;
-            key-positions = <12 13>;
-            bindings = <&kp SQT>;
-            layers = <BASE>;
-        };
-
-    combo_double_quote {
-            timeout-ms = <35>;
-            key-positions = <11 12>;
-            bindings = <&kp DQT>;
-            layers = <BASE>;
-        };
+        COMBO(underscore,      1 2, &kp UNDER)
+        COMBO(minus,           2 3, &kp MINUS)
+        COMBO(double_quote,  11 12, &kp DQT)
+        COMBO(single_quote,  12 13, &kp SQT)
+        COMBO(home,          16 17, &kp HOME)
+        COMBO(end,           17 18, &kp END)
+        COMBO(colon,         18 19, &kp COLON)
+        COMBO(qmark,         29 30, &kp QMARK)
     };
 
     keymap {
@@ -158,9 +122,9 @@
         sym_layer {
             display-name = "SYM";
             bindings = <
-                &kp PRCNT  &kp LT      &kp GT      &kp MINUS   &kp PIPE        &kp CARET   &kp LBRC    &kp RBRC    &kp DLLR    &kp AMPS
-                &hml LGUI EXCL  &hml LALT ASTRK  &hml LCTRL DQT  &hml LSHFT SQT  &kp TILDE       &kp HASH    &hmr RSHFT LPAR  &hmr RCTRL RPAR  &hmr RALT SEMI  &hmr RGUI COLON
-    &trans      &kp QMARK   &kp PLUS    &kp EQUAL   &kp UNDER   &kp PRCNT       &kp GRAVE      &kp LBKT    &kp RBKT    &kp BSLH    &kp FSLH     &trans
+                &kp LT      &kp GT      &kp EQUAL   &kp UNDER   &kp PIPE        &kp CARET   &kp LBRC    &kp RBRC    &kp DLLR    &kp AMPS
+                &hml LGUI EXCL  &hml LALT QMARK  &hml LCTRL DQT  &hml LSHFT SQT  &kp TILDE       &kp HASH    &hmr RSHFT LPAR  &hmr RCTRL RPAR  &hmr RALT SEMI  &hmr RGUI COLON
+    &trans      &kp ASTRK   &kp PLUS    &kp PRCNT   &kp MINUS   &kp GRAVE       &kp AT     &kp LBKT    &kp RBKT    &kp BSLH    &kp FSLH     &trans
                                         &trans      &trans      &trans          &trans      &trans      &trans
             >;
         };
