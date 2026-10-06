@@ -1,11 +1,9 @@
 // ErgoDox EZ Glow — the Oryx layout xbvqK/nlyNZG, with home-row mods, a
 // bilateral chordal-hold guard and combos added to the base layer only.
 //
-// Layers [1]-[4] are carried over verbatim from the Oryx source export; the
-// only changes to them are that their numeric indices now have names and
-// the MOUSE layer's RGB controls are cut down to a single on/off key. The
-// GAME layer in particular is untouched: no mods, and combo_should_trigger()
-// keeps every combo off it.
+// GAME/NUM keep the Oryx layout; MOUSE keeps its keys except for RGB on/off.
+// SYM maps the Totem's symbol positions onto the ErgoDox letter keys, while
+// retaining the ErgoDox-only number row. Combos stay off GAME.
 //
 // Lighting is one custom RGB effect (rgb_matrix_user.inc) instead of Oryx's
 // per-key ledmap and the stock animations, which config.h compiles out.
@@ -82,9 +80,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_SYM] = LAYOUT_ergodox_pretty(
         KC_TRANSPARENT, KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,          KC_F6,                                  KC_F5,          KC_F6,          KC_F7,          KC_F8,          KC_F9,          KC_F10,         KC_F11,
-        KC_TRANSPARENT, KC_GRAVE,       KC_LABK,        KC_RABK,        KC_MINUS,       KC_PIPE,        KC_TRANSPARENT,                         KC_TRANSPARENT, KC_CIRC,        KC_LCBR,        KC_RCBR,        KC_DLR,         KC_AMPR,        KC_F12,
-        KC_TRANSPARENT, KC_EXLM,        KC_ASTR,        KC_SLASH,       KC_EQUAL,       KC_AMPR,                                                                KC_HASH,        KC_LPRN,        KC_RPRN,        KC_SCLN,        KC_DQUO,        KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_TILD,        KC_PLUS,        KC_UNDS,        KC_COLN,        KC_PERC,        KC_TRANSPARENT,                         KC_TRANSPARENT, KC_AT,          KC_LBRC,        KC_RBRC,        KC_BSLS,        KC_QUOTE,       KC_TRANSPARENT,
+        KC_TRANSPARENT, KC_LABK,        KC_RABK,        KC_EQUAL,       KC_MINUS,      KC_PIPE,        KC_TRANSPARENT,                         KC_TRANSPARENT, KC_CIRC,        KC_LCBR,        KC_RCBR,        KC_DLR,         KC_AMPR,        KC_F12,
+        KC_TRANSPARENT, MT(MOD_LGUI, KC_1), MT(MOD_LALT, KC_SLSH), MT(MOD_LCTL, KC_QUOT), MT(MOD_LSFT, KC_QUOT), KC_TILD,                             KC_HASH, MT(MOD_RSFT, KC_9), MT(MOD_RCTL, KC_0), MT(MOD_RALT, KC_SCLN), MT(MOD_RGUI, KC_SCLN), KC_TRANSPARENT,
+        KC_TRANSPARENT, KC_ASTR,        KC_PLUS,        KC_PERC,        KC_UNDS,       KC_GRAVE,       KC_TRANSPARENT,                         KC_TRANSPARENT, KC_AT,          KC_LBRC,        KC_RBRC,        KC_BSLS,        KC_SLASH,       KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                                                         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
 
                                                                                         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
@@ -158,14 +156,33 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     return true; // balanced, for the home row mods
 }
 
-// Only the home-row mods want require-prior-idle. KC_SPC and KC_TAB are both
-// in QMK's default is_flow_tap_key() set, so without this override SYM would
-// be unreachable for FLOW_TAP_TERM after every letter.
+// QMK mod-taps only carry an 8-bit tap code; shifted SYM symbols need an
+// explicit tap below. Recognize these codes for Flow Tap on SYM as well.
+static uint16_t sym_tap(uint16_t keycode) {
+    switch (keycode) {
+        case MT(MOD_LGUI, KC_1):    return KC_EXLM;
+        case MT(MOD_LALT, KC_SLSH): return KC_QUES;
+        case MT(MOD_LCTL, KC_QUOT): return KC_DQUO;
+        case MT(MOD_LSFT, KC_QUOT): return KC_QUOT;
+        case MT(MOD_RSFT, KC_9):    return KC_LPRN;
+        case MT(MOD_RCTL, KC_0):    return KC_RPRN;
+        case MT(MOD_RALT, KC_SCLN): return KC_SCLN;
+        case MT(MOD_RGUI, KC_SCLN): return KC_COLN;
+    }
+    return KC_NO;
+}
+
+// Only home-row mods want require-prior-idle. Without this override Space
+// and Tab would be unreachable as holds for FLOW_TAP_TERM after a letter.
 uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t *record, uint16_t prev_keycode) {
     switch (keycode) {
         case LT(_SYM, KC_SPACE):
         case MT(MOD_LCTL, KC_TAB):
             return 0;
+    }
+    if (get_highest_layer(layer_state) == _SYM && sym_tap(keycode) != KC_NO &&
+        (sym_tap(prev_keycode) != KC_NO || is_flow_tap_key(prev_keycode))) {
+        return FLOW_TAP_TERM;
     }
     if (is_flow_tap_key(keycode) && is_flow_tap_key(prev_keycode)) {
         return FLOW_TAP_TERM;
@@ -173,7 +190,7 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t *record, uint16_t prev_
     return 0;
 }
 
-// Tracks idle time for the caps-word combo's prior-idle guard, below. Only
+// Tracks idle time for the combos' prior-idle guard, below. Only
 // advances for keys that are NOT part of a combo: process_combo() runs
 // before process_record_user() and returns false for combo-participating
 // presses, so this only moves on genuinely idle-then-press activity.
@@ -182,6 +199,14 @@ static uint16_t last_key_time = 0;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         last_key_time = timer_read();
+    }
+
+    if (get_highest_layer(layer_state) == _SYM && record->tap.count) {
+        uint16_t symbol = sym_tap(keycode);
+        if (symbol != KC_NO) {
+            if (record->event.pressed) tap_code16(symbol);
+            return false;
+        }
     }
 
     if (keycode >= NUMF(KC_1) && keycode <= NUMF(KC_0)) {
@@ -208,8 +233,8 @@ const uint16_t PROGMEM combo_quot[] = {MT(MOD_LCTL, KC_D), MT(MOD_LSFT, KC_F), C
 const uint16_t PROGMEM combo_home[] = {MT(MOD_RSFT, KC_J), MT(MOD_RCTL, KC_K), COMBO_END};
 const uint16_t PROGMEM combo_end[]  = {MT(MOD_RCTL, KC_K), MT(MOD_RALT, KC_L), COMBO_END};
 const uint16_t PROGMEM combo_coln[] = {MT(MOD_RALT, KC_L), MT(MOD_RGUI, KC_SCLN), COMBO_END};
-const uint16_t PROGMEM combo_unds[] = {KC_X, KC_C, COMBO_END};
-const uint16_t PROGMEM combo_mins[] = {KC_C, KC_V, COMBO_END};
+const uint16_t PROGMEM combo_unds[] = {KC_W, KC_E, COMBO_END};
+const uint16_t PROGMEM combo_mins[] = {KC_E, KC_R, COMBO_END};
 const uint16_t PROGMEM combo_ques[] = {KC_DOT, KC_SLASH, COMBO_END};
 
 combo_t key_combos[] = {
@@ -239,8 +264,8 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
     if (get_highest_layer(layer_state) != _BASE) {
         return false;
     }
-    // require-prior-idle-ms = <100> on the Totem: stops F+J firing mid-word.
-    if (combo_index == CB_CAPS && timer_elapsed(last_key_time) < 100) {
+    // require-prior-idle-ms = <100> on the Totem: stops combos firing mid-word.
+    if (record->event.pressed && timer_elapsed(last_key_time) < 100) {
         return false;
     }
     return true;
