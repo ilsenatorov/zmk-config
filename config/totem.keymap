@@ -43,6 +43,12 @@
     quick-tap-ms = <175>;
 };
 
+// Same gap on upstream &mt: makes tap-then-hold repeat Esc and Del on the
+// LGUI/LSHIFT thumbs.
+&mt {
+    quick-tap-ms = <175>;
+};
+
 / {
     behaviors {
         // Timer-less home-row mods: with `balanced` plus the positional guard
